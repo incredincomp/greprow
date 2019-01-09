@@ -1,7 +1,7 @@
 #!/bin/bash - 
 #===============================================================================
 #
-#          FILE: 1greprow.sh
+#          FILE: greprow.sh
 # 
 #         USAGE: sudo ./greprow.sh 
 # 
