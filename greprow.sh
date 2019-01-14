@@ -28,60 +28,56 @@ set -o nounset                              # Treat unset variables as an error
 #this is just a weird function that I dont think i need.  at the end tho, part of the switch case calls for a repeat of the
 #program functions so hey, why not make it easier on the program and compile it here?
 next_Search () {
-    yes_no
+    set_Path
     what_Find
     grep_Append
     next_Step
 }
 
 #function to ask user if they would like to define their own file path, if not, the program declares greprow2/log.txt as input
-yes_no () {
-dialog --title "Define your own file/path?" \
---yesno "If you select no, $PWD/log.txt will be used." 7 60
-response=$?
-case $response in
-   0)
+#yes_no () {
+#dialog --title "Define your own file/path?" \
+#--yesno "If you select no, $PWD/log.txt will be used." 7 60
+#response=$?
+#case $response in
+#   0)
     #if yes/send user to set_Path dialog
-               clear
-               set_Path
-               ;;
-   1)
+#               clear
+#               set_Path
+#               ;;
+#   1)
     #if no/set predefined path
-               clear
-               echo "Okay, we set the path as $PWD\log.txt."
-               FILEPATH="$PWD/log.txt"
-               ;;
-   255)
-               clear
-               echo "[ESC] key pressed."
-               ;;
-esac
-}
-###Take this out. This is bogus.
-set_Path () {
-DIALOG=${DIALOG=dialog}
+#               clear
+#               echo "Okay, we set the path as $PWD\log.txt."
+#               FILEPATH="$PWD/log.txt"
+#               ;;
+#   255)
+#               clear
+#               echo "[ESC] key pressed."
+#               ;;
+#esac
+#}
 
-FILEPATH=`$DIALOG --stdout --title "Please choose a file" --fselect $HOME/ 14 48`
-if [ -e "$FILEPATH" ]
-then 
-   case $? in
-       0)
-               clear                
-               echo "\"$FILEPATH\" chosen";;
-       1)
-               clear
-               echo "Cancel pressed."
-               yes_no
-               ;;
-       255)
-               clear
-               echo "Box closed."
-               yes_no
-               ;;
-   esac
-else
-   yes_no
-fi
+#set path has been reverted to command line interaction again, youre welcome to myself
+set_Path () {
+echo " If you would like to define your own path, please press y. Otherwise, if you want this program to break, please press n. "
+echo -n "y or n: " 
+read answer
+case $answer in
+
+            [yY] )
+                   read -p "Please type your full file path, starting with a backslash if its absolute. Its more than likely equal to $PWD/names.txt: " inputPath
+                   ;;
+
+            [nN] )
+                   echo "okay, were going to just use $PWD/log.txt for you."
+                   inputPath="$PWD/log.txt"
+                   ;;
+
+            * ) echo "Invalid input"
+                continue
+		;;
+esac
 }
 
 #this function collects the variable that is used to search the specified file and stores it as lookFor
@@ -100,7 +96,7 @@ grep_Append () {
 ###DO NOT TOUCH!!!! THIS SHOULDNT WORK, SO THEREFORE ITS PERFECTLY BROKEN AS IS!!!!###
 while : 
  do
-     grep -i $lookFor $FILEPATH >> $lookFor.txt 
+     grep -i $lookFor $inputPath >> $lookFor.txt 
      if [ $? -eq 0 ] ; then
        echo "	"
        echo "$lookFor found and writing to file, check current directory for $lookFor.txt"
@@ -150,7 +146,7 @@ esac
 
 #once bash finishes reading functions, the initial search is called here.  When getting to next_Step, if user selects yes
 #next_Search will be called which is another previously declared function including these same commands.
-yes_no
+set_Path
 what_Find
 grep_Append
 next_Step
