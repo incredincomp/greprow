@@ -87,9 +87,9 @@ what_Find () {
     
     echo -n "What information would you like to find? (Do not use a Space if asking for a name.) "    
         read Look_for
-	Look_for="$(echo -e "${Look_for}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+	Look_for2="$(echo -e "${Look_for}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
     echo "	"
-    echo "Looking for $Look_For... Please wait... "
+    echo "Looking for $Look_For2... Please wait... "
     echo "Search Start Time : " $(date -u)
     printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
 }
@@ -99,7 +99,7 @@ grep_Append () {
 ###DO NOT TOUCH!!!! THIS SHOULDNT WORK, SO THEREFORE ITS PERFECTLY BROKEN AS IS!!!!###
 while : 
  do
-     grep -i $Look_for $inputPath >> $Look_for.txt 
+     grep -i $Look_for2 $inputPath >> $Look_for2.txt 
      if [ $? -eq 0 ] ; then
        echo "	"
        echo "$Look_for found and writing to file, check current directory for $Look_For.txt"
