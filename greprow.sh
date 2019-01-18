@@ -34,7 +34,7 @@ next_Search () {
     next_Step
 }
 
-#function to ask user if they would like to define their own file path, if not, the program declares greprow2/log.txt as input
+#function to ask user if they would like to define their own file path, if not, the program declares greprow/log.txt as input
 #yes_no () {
 #dialog --title "Define your own file/path?" \
 #--yesno "If you select no, $PWD/log.txt will be used." 7 60
@@ -74,19 +74,22 @@ case $answer in
                    inputPath="$PWD/log.txt"
                    ;;
 
-            * ) echo "Invalid input"
-                continue
-		;;
+               * ) 
+	           echo "Invalid input"
+                   continue
+                   ;;
 esac
 }
 
 #this function collects the variable that is used to search the specified file and stores it as lookFor
 what_Find () {  
     echo "	"
-    echo -n "What information would you like to find? "
-        read lookFor
+    
+    echo -n "What information would you like to find? (Do not use a Space if asking for a name.) "    
+        read Look_for
+	Look_for="$(echo -e "${Look_for}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
     echo "	"
-    echo "Looking for $lookFor... Please wait... "
+    echo "Looking for $Look_For... Please wait... "
     echo "Search Start Time : " $(date -u)
     printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
 }
@@ -96,10 +99,10 @@ grep_Append () {
 ###DO NOT TOUCH!!!! THIS SHOULDNT WORK, SO THEREFORE ITS PERFECTLY BROKEN AS IS!!!!###
 while : 
  do
-     grep -i $lookFor $inputPath >> $lookFor.txt 
+     grep -i $Look_for $inputPath >> $Look_for.txt 
      if [ $? -eq 0 ] ; then
        echo "	"
-       echo "$lookFor found and writing to file, check current directory for $lookFor.txt"
+       echo "$Look_for found and writing to file, check current directory for $Look_For.txt"
        echo "Search ended at " $(date -u)
        printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
        break
