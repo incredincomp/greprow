@@ -34,30 +34,6 @@ next_Search () {
     next_Step
 }
 
-#function to ask user if they would like to define their own file path, if not, the program declares greprow2/log.txt as input
-#yes_no () {
-#dialog --title "Define your own file/path?" \
-#--yesno "If you select no, $PWD/log.txt will be used." 7 60
-#response=$?
-#case $response in
-#   0)
-    #if yes/send user to set_Path dialog
-#               clear
-#               set_Path
-#               ;;
-#   1)
-    #if no/set predefined path
-#               clear
-#               echo "Okay, we set the path as $PWD\log.txt."
-#               FILEPATH="$PWD/log.txt"
-#               ;;
-#   255)
-#               clear
-#               echo "[ESC] key pressed."
-#               ;;
-#esac
-#}
-
 #set path has been reverted to command line interaction again, youre welcome to myself
 set_Path () {
 echo " If you would like to define your own path, please press y. Otherwise, if you want this program to break, please press n. "
@@ -85,7 +61,7 @@ what_Find () {
     echo "	"
     echo -n "What information would you like to find? "
         read lookFor
-	lookFor="$(echo -e "${lookFor}" | sed -e 's/[[:space:]]*$//')"
+	lookFor="$(echo -e "${lookFor}" | tr -d '[:space:]')"
     echo "	"
     echo "Looking for $lookFor... Please wait... "
     echo "Search Start Time : " $(date -u)
