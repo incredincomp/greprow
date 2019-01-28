@@ -85,6 +85,7 @@ what_Find () {
     echo "	"
     echo -n "What information would you like to find? "
         read lookFor
+	lookFor="$(echo -e "${lookFor}" | sed -e 's/[[:space:]]*$//')"
     echo "	"
     echo "Looking for $lookFor... Please wait... "
     echo "Search Start Time : " $(date -u)
