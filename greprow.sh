@@ -50,20 +50,21 @@ case $answer in
                    inputPath="$PWD/log.txt"
                    ;;
 
-            * ) echo "Invalid input"
-                continue
-		;;
+               * ) 
+	           echo "Invalid input"
+                   continue
+                   ;;
 esac
 }
 
 #this function collects the variable that is used to search the specified file and stores it as lookFor
 what_Find () {  
     echo "	"
-    echo -n "What information would you like to find? "
-        read lookFor
-	lookFor="$(echo -e "${lookFor}" | tr -d '[:space:]')"
+    echo -n "What information would you like to find? (Do not use a Space if asking for a name.) "    
+        read Look_for
+	Look_for2="$(echo -e "${Look_for}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
     echo "	"
-    echo "Looking for $lookFor... Please wait... "
+    echo "Looking for $Look_For2... Please wait... "
     echo "Search Start Time : " $(date -u)
     printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
 }
@@ -71,12 +72,28 @@ what_Find () {
 grep_Append () {
 #I dont know why this works, how or if it even should.  This while statement shows my naivety to bash scripting though.
 ###DO NOT TOUCH!!!! THIS SHOULDNT WORK, SO THEREFORE ITS PERFECTLY BROKEN AS IS!!!!###
+
+#okay so its time to implement some error checks of sorts
+
+#The -n operator checks whether the string is not null.
+#Effectively, this will return true for every case except where the string contains no characters. ie:
+#VAR="hello"
+#if [ -n "$VAR" ]; then
+#    echo "VAR is not empty"
+#fi
+
+##Similarly, the -z operator checks whether the string is null. ie:
+# VAR=""
+#if [ -z "$VAR" ]; then
+#   echo "VAR is empty"
+#fi
+
 while : 
  do
-     grep -i $lookFor $inputPath >> $lookFor.txt 
+     grep -i $Look_for2 $inputPath >> $Look_for2.txt 
      if [ $? -eq 0 ] ; then
        echo "	"
-       echo "$lookFor found and writing to file, check current directory for $lookFor.txt"
+       echo "$Look_for found and writing to file, check current directory for $Look_For.txt"
        echo "Search ended at " $(date -u)
        printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
        break
