@@ -50,20 +50,21 @@ case $answer in
                    inputPath="$PWD/log.txt"
                    ;;
 
-            * ) echo "Invalid input"
-                continue
-		;;
+               * ) 
+	           echo "Invalid input"
+                   continue
+                   ;;
 esac
 }
 
 #this function collects the variable that is used to search the specified file and stores it as lookFor
 what_Find () {  
     echo "	"
-    echo -n "What information would you like to find? "
-        read lookFor
-	lookFor="$(echo -e "${lookFor}" | tr -d '[:space:]')"
+    echo -n "What information would you like to find? (Do not use a Space if asking for a name.) "    
+        read Look_for
+	Look_for2="$(echo -e "${Look_for}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
     echo "	"
-    echo "Looking for $lookFor... Please wait... "
+    echo "Looking for $Look_For2... Please wait... "
     echo "Search Start Time : " $(date -u)
     printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
 }
@@ -87,14 +88,12 @@ grep_Append () {
 #   echo "VAR is empty"
 #fi
 
-
-
 while : 
  do
-     grep -i $lookFor $inputPath >> $lookFor.txt 
+     grep -i $Look_for2 $inputPath >> $Look_for2.txt 
      if [ $? -eq 0 ] ; then
        echo "	"
-       echo "$lookFor found and writing to file, check current directory for $lookFor.txt"
+       echo "$Look_for found and writing to file, check current directory for $Look_For.txt"
        echo "Search ended at " $(date -u)
        printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
        break
