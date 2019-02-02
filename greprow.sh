@@ -15,7 +15,7 @@
 #		
 #          BUGS: will not work if you use a space in the search term, also, still creates a file even if script returns an error
 #                for no search term found, few others but gotta keep running it over and over yet
-#         NOTES: v2.0
+#         NOTES: v2.1
 #        AUTHOR: @incredincomp
 #  ORGANIZATION: 
 #       CREATED: 01/08/2019 09:55:54 PM
@@ -33,30 +33,6 @@ next_Search () {
     grep_Append
     next_Step
 }
-
-#function to ask user if they would like to define their own file path, if not, the program declares greprow/log.txt as input
-#yes_no () {
-#dialog --title "Define your own file/path?" \
-#--yesno "If you select no, $PWD/log.txt will be used." 7 60
-#response=$?
-#case $response in
-#   0)
-    #if yes/send user to set_Path dialog
-#               clear
-#               set_Path
-#               ;;
-#   1)
-    #if no/set predefined path
-#               clear
-#               echo "Okay, we set the path as $PWD\log.txt."
-#               FILEPATH="$PWD/log.txt"
-#               ;;
-#   255)
-#               clear
-#               echo "[ESC] key pressed."
-#               ;;
-#esac
-#}
 
 #set path has been reverted to command line interaction again, youre welcome to myself
 set_Path () {
@@ -84,7 +60,6 @@ esac
 #this function collects the variable that is used to search the specified file and stores it as lookFor
 what_Find () {  
     echo "	"
-    
     echo -n "What information would you like to find? (Do not use a Space if asking for a name.) "    
         read Look_for
 	Look_for2="$(echo -e "${Look_for}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
@@ -112,7 +87,6 @@ grep_Append () {
 #if [ -z "$VAR" ]; then
 #   echo "VAR is empty"
 #fi
-
 
 while : 
  do
