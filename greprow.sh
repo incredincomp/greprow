@@ -97,6 +97,23 @@ what_Find () {
 grep_Append () {
 #I dont know why this works, how or if it even should.  This while statement shows my naivety to bash scripting though.
 ###DO NOT TOUCH!!!! THIS SHOULDNT WORK, SO THEREFORE ITS PERFECTLY BROKEN AS IS!!!!###
+
+#okay so its time to implement some error checks of sorts
+
+#The -n operator checks whether the string is not null.
+#Effectively, this will return true for every case except where the string contains no characters. ie:
+#VAR="hello"
+#if [ -n "$VAR" ]; then
+#    echo "VAR is not empty"
+#fi
+
+##Similarly, the -z operator checks whether the string is null. ie:
+# VAR=""
+#if [ -z "$VAR" ]; then
+#   echo "VAR is empty"
+#fi
+
+
 while : 
  do
      grep -i $Look_for2 $inputPath >> $Look_for2.txt 
