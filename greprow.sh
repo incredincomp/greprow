@@ -13,9 +13,9 @@
 #       OPTIONS: ---
 #  REQUIREMENTS: you need to have a .txt file in a location you know
 #		
-#          BUGS: will not work if you use a space in the search term, also, still creates a file even if script returns an error
+#          BUGS: still creates a file even if script returns an error
 #                for no search term found, few others but gotta keep running it over and over yet
-#         NOTES: v2.1
+#         NOTES: v2.2 
 #        AUTHOR: @incredincomp
 #  ORGANIZATION: 
 #       CREATED: 01/08/2019 09:55:54 PM
@@ -60,46 +60,36 @@ esac
 #this function collects the variable that is used to search the specified file and stores it as lookFor
 what_Find () {  
     echo "	"
-    echo -n "What information would you like to find? (Do not use a Space if asking for a name.) "    
+    echo -n "What information would you like to find? (This program will clear all white space from user input.) "    
         read Look_for
-	Look_for2="$(echo -e "${Look_for}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
-    echo "	"
-    echo "Looking for $Look_For2... Please wait... "
+#this should clear whitepsace from user defined variable
+#the following if checks to see if variable is empty
+        Look_for2="$(echo -e "${Look_for}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')	
+	if [ -z "$Look_for2" ]; then 
+	        echo "Sorry! I cant search for null.. Try again"
+		echo "/n"
+		return
+	fi
+    echo "/n"
+    echo "Looking for $Look_for2... Please wait... "
     echo "Search Start Time : " $(date -u)
     printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
 }
-
-grep_Append () {
 #I dont know why this works, how or if it even should.  This while statement shows my naivety to bash scripting though.
-###DO NOT TOUCH!!!! THIS SHOULDNT WORK, SO THEREFORE ITS PERFECTLY BROKEN AS IS!!!!###
-
-#okay so its time to implement some error checks of sorts
-
-#The -n operator checks whether the string is not null.
-#Effectively, this will return true for every case except where the string contains no characters. ie:
-#VAR="hello"
-#if [ -n "$VAR" ]; then
-#    echo "VAR is not empty"
-#fi
-
-##Similarly, the -z operator checks whether the string is null. ie:
-# VAR=""
-#if [ -z "$VAR" ]; then
-#   echo "VAR is empty"
-#fi
-
+#DO NOT TOUCH!!!! THIS SHOULDNT WORK, SO THEREFORE ITS PERFECTLY BROKEN AS IS!
+grep_Append () {
 while : 
  do
      grep -i $Look_for2 $inputPath >> $Look_for2.txt 
      if [ $? -eq 0 ] ; then
        echo "	"
-       echo "$Look_for found and writing to file, check current directory for $Look_For.txt"
+       echo "$Look_for found and writing to file, check current directory for $Look_for.txt"
        echo "Search ended at " $(date -u)
        printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
        break
      else
        echo "	"
-       echo "Error, $lookFor not found in specified file."
+       echo "Error, $Look_for not found in specified file."
        printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
        next_Step
      fi
