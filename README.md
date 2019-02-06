@@ -3,14 +3,13 @@
 The main goal of this program was to get an A in my Linux class.  Secondary objective is to make a useful program foundation
 for use in data management and research.  In its current rendition, it will parse a text file for a keyword, constantly until the program fails to find another iteration of said keyword, also ignoring line delimiters, and will append the row contents to a new text file.  I have not tried this with a file containing multiple lines including the keyword so there is much more to be done.. this is just the base! I believe collaborating is the key to any successful project and would be very interested to hear how running this program went for you. Would you add something? Do you see any opportunity for improvement? Did you hate it, or would you maybe recommend this to a friend? Let me know!
 
-## Possible Use Cases
+## Possible Use Case
 •analyzing server logs for suspect ip entries
-
+•Have a suggestion? Please let me know
 
 Enter as many numbers from the IP that you can example, 192.168.12.3, this will
 pull the entire line, for every instance that is related to that ip, and print/append the data
-to a new file with the name of the search issued.  needs formatting work, but im busy now...
-much apologies.
+to a new file with the name of the search issued.
 
 ### Warning
 
