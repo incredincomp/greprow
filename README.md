@@ -9,7 +9,7 @@ for use in data management and research.  In its current rendition, it will pars
 
 Enter as many numbers from the IP that you can example, 192.168.12.3, this will
 pull the entire line, for every instance that is related to that ip, and print/append the data
-to a new file with the name of the search issued, or will append the new info to an old file if one already exists.
+to a new file with the name of the search issued.
 
 ### Warning
 
