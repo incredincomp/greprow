@@ -5,6 +5,7 @@ for use in data management and research.  In its current rendition, it will pars
 
 ## Possible Use Cases
 •analyzing server logs for suspect ip entries
+
 •Have a suggestion? Please let me know
 
 Enter as many numbers from the IP that you can example, 192.168.12.3, this will
