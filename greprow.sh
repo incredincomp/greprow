@@ -57,10 +57,9 @@ case $answer in
                    inputPath="$PWD/log.txt"
                    ;;
 
-               * ) 
-	           echo "Invalid input"
-                   continue
-                   ;;
+            * ) echo "Invalid input"
+                continue
+		;;
 esac
 }
 
@@ -84,13 +83,12 @@ what_Find () {
 grep_Append () {
 #I dont know why this works, how or if it even should.  This while statement shows my naivety to bash scripting though.
 ###DO NOT TOUCH!!!! THIS SHOULDNT WORK, SO THEREFORE ITS PERFECTLY BROKEN AS IS!!!!###
-
 while : 
  do
-     grep -i $Look_for2 $inputPath >> $Look_for2.txt 
+     grep -i $lookFor $inputPath >> $lookFor.txt 
      if [ $? -eq 0 ] ; then
        echo "	"
-       echo "$Look_for found and writing to file, check current directory for $Look_For.txt"
+       echo "$lookFor found and writing to file, check current directory for $lookFor.txt"
        echo "Search ended at " $(date -u)
        print_line
        break
