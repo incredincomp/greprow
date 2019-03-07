@@ -14,7 +14,11 @@
 #		
 #          BUGS: will not work if you use a space in the search term, also, still creates a file even if script returns an error
 #                for no search term found, few others but gotta keep running it over and over yet
+<<<<<<< HEAD
 #         NOTES: v2.2
+=======
+#         NOTES: v2.1
+>>>>>>> parent of 1c5bf88... Update greprow.sh
 #        AUTHOR: @incredincomp
 #  ORGANIZATION: 
 #       CREATED: 01/08/2019 09:55:54 PM
@@ -69,6 +73,7 @@ what_Find () {
     echo -n "What information would you like to find? (Do not use a Space if asking for a name.) "    
         read Look_for
 	Look_for2="$(echo -e "${Look_for}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+<<<<<<< HEAD
 	if [ -z "$Look_for2" ]; then 
 		echo "Sorry! I cant search for null.. Try again"
 		echo "/n"
@@ -76,6 +81,10 @@ what_Find () {
 	fi
     print_line
     echo "Looking for $Look_for... Please wait... "
+=======
+    echo "	"
+    echo "Looking for $Look_For2... Please wait... "
+>>>>>>> parent of 1c5bf88... Update greprow.sh
     echo "Search Start Time : " $(date -u)
     print_line
 }
@@ -83,19 +92,47 @@ what_Find () {
 grep_Append () {
 #I dont know why this works, how or if it even should.  This while statement shows my naivety to bash scripting though.
 ###DO NOT TOUCH!!!! THIS SHOULDNT WORK, SO THEREFORE ITS PERFECTLY BROKEN AS IS!!!!###
+<<<<<<< HEAD
+=======
+
+#okay so its time to implement some error checks of sorts
+
+#The -n operator checks whether the string is not null.
+#Effectively, this will return true for every case except where the string contains no characters. ie:
+#VAR="hello"
+#if [ -n "$VAR" ]; then
+#    echo "VAR is not empty"
+#fi
+
+##Similarly, the -z operator checks whether the string is null. ie:
+# VAR=""
+#if [ -z "$VAR" ]; then
+#   echo "VAR is empty"
+#fi
+
+>>>>>>> parent of 1c5bf88... Update greprow.sh
 while : 
  do
      grep -i $lookFor $inputPath >> $lookFor.txt 
      if [ $? -eq 0 ] ; then
        echo "	"
+<<<<<<< HEAD
        echo "$lookFor found and writing to file, check current directory for $lookFor.txt"
+=======
+       echo "$Look_for found and writing to file, check current directory for $Look_For.txt"
+>>>>>>> parent of 1c5bf88... Update greprow.sh
        echo "Search ended at " $(date -u)
        print_line
        break
      else
        echo "	"
+<<<<<<< HEAD
        echo "Error, $Look_for not found in specified file."
        print_line
+=======
+       echo "Error, $lookFor not found in specified file."
+       printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
+>>>>>>> parent of 1c5bf88... Update greprow.sh
        next_Step
      fi
  done
