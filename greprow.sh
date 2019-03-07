@@ -16,7 +16,11 @@
 #                for no search term found, few others but gotta keep running it over and over yet
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 #         NOTES: v2.2
+=======
+#         NOTES: v2.1
+>>>>>>> parent of 1c5bf88... Update greprow.sh
 =======
 #         NOTES: v2.1
 >>>>>>> parent of 1c5bf88... Update greprow.sh
@@ -79,6 +83,7 @@ what_Find () {
 	Look_for2="$(echo -e "${Look_for}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	if [ -z "$Look_for2" ]; then 
 		echo "Sorry! I cant search for null.. Try again"
 		echo "/n"
@@ -86,6 +91,10 @@ what_Find () {
 	fi
     print_line
     echo "Looking for $Look_for... Please wait... "
+=======
+    echo "	"
+    echo "Looking for $Look_For2... Please wait... "
+>>>>>>> parent of 1c5bf88... Update greprow.sh
 =======
     echo "	"
     echo "Looking for $Look_For2... Please wait... "
@@ -103,7 +112,10 @@ grep_Append () {
 ###DO NOT TOUCH!!!! THIS SHOULDNT WORK, SO THEREFORE ITS PERFECTLY BROKEN AS IS!!!!###
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of 1c5bf88... Update greprow.sh
 =======
 >>>>>>> parent of 1c5bf88... Update greprow.sh
 
@@ -123,6 +135,9 @@ grep_Append () {
 #fi
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 1c5bf88... Update greprow.sh
+=======
 >>>>>>> parent of 1c5bf88... Update greprow.sh
 =======
 >>>>>>> parent of 1c5bf88... Update greprow.sh
@@ -133,7 +148,11 @@ while :
        echo "	"
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
        echo "$lookFor found and writing to file, check current directory for $lookFor.txt"
+=======
+       echo "$Look_for found and writing to file, check current directory for $Look_For.txt"
+>>>>>>> parent of 1c5bf88... Update greprow.sh
 =======
        echo "$Look_for found and writing to file, check current directory for $Look_For.txt"
 >>>>>>> parent of 1c5bf88... Update greprow.sh
@@ -147,9 +166,12 @@ while :
        echo "	"
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
        echo "Error, $Look_for not found in specified file."
        print_line
 =======
+=======
+>>>>>>> parent of 1c5bf88... Update greprow.sh
 =======
 >>>>>>> parent of 1c5bf88... Update greprow.sh
        echo "Error, $lookFor not found in specified file."
