@@ -15,7 +15,11 @@
 #          BUGS: will not work if you use a space in the search term, also, still creates a file even if script returns an error
 #                for no search term found, few others but gotta keep running it over and over yet
 <<<<<<< HEAD
+<<<<<<< HEAD
 #         NOTES: v2.2
+=======
+#         NOTES: v2.1
+>>>>>>> parent of 1c5bf88... Update greprow.sh
 =======
 #         NOTES: v2.1
 >>>>>>> parent of 1c5bf88... Update greprow.sh
@@ -74,6 +78,7 @@ what_Find () {
         read Look_for
 	Look_for2="$(echo -e "${Look_for}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
 <<<<<<< HEAD
+<<<<<<< HEAD
 	if [ -z "$Look_for2" ]; then 
 		echo "Sorry! I cant search for null.. Try again"
 		echo "/n"
@@ -81,6 +86,10 @@ what_Find () {
 	fi
     print_line
     echo "Looking for $Look_for... Please wait... "
+=======
+    echo "	"
+    echo "Looking for $Look_For2... Please wait... "
+>>>>>>> parent of 1c5bf88... Update greprow.sh
 =======
     echo "	"
     echo "Looking for $Look_For2... Please wait... "
@@ -93,7 +102,10 @@ grep_Append () {
 #I dont know why this works, how or if it even should.  This while statement shows my naivety to bash scripting though.
 ###DO NOT TOUCH!!!! THIS SHOULDNT WORK, SO THEREFORE ITS PERFECTLY BROKEN AS IS!!!!###
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of 1c5bf88... Update greprow.sh
 
 #okay so its time to implement some error checks of sorts
 
@@ -110,6 +122,9 @@ grep_Append () {
 #   echo "VAR is empty"
 #fi
 
+<<<<<<< HEAD
+>>>>>>> parent of 1c5bf88... Update greprow.sh
+=======
 >>>>>>> parent of 1c5bf88... Update greprow.sh
 while : 
  do
@@ -117,7 +132,11 @@ while :
      if [ $? -eq 0 ] ; then
        echo "	"
 <<<<<<< HEAD
+<<<<<<< HEAD
        echo "$lookFor found and writing to file, check current directory for $lookFor.txt"
+=======
+       echo "$Look_for found and writing to file, check current directory for $Look_For.txt"
+>>>>>>> parent of 1c5bf88... Update greprow.sh
 =======
        echo "$Look_for found and writing to file, check current directory for $Look_For.txt"
 >>>>>>> parent of 1c5bf88... Update greprow.sh
@@ -127,9 +146,12 @@ while :
      else
        echo "	"
 <<<<<<< HEAD
+<<<<<<< HEAD
        echo "Error, $Look_for not found in specified file."
        print_line
 =======
+=======
+>>>>>>> parent of 1c5bf88... Update greprow.sh
        echo "Error, $lookFor not found in specified file."
        printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
 >>>>>>> parent of 1c5bf88... Update greprow.sh
