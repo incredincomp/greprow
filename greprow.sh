@@ -22,7 +22,7 @@
 #      REVISION:  /0/2019 10:40:00 AM
 #===============================================================================
 
-
+set x
 set -o nounset                              # Treat unset variables as an error
 
 #this is just a weird function that I dont think i need.  at the end tho, part of the switch case calls for a repeat of the
@@ -83,48 +83,32 @@ esac
 
 #this function collects the variable that is used to search the specified file and stores it as lookFor
 what_Find () {  
-    echo "	"
-    
-    echo -n "What information would you like to find? (Do not use a Space if asking for a name.) "    
-        read Look_for
-	Look_for2="$(echo -e "${Look_for}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
-    echo "	"
-    echo "Looking for $Look_For2... Please wait... "
-    echo "Search Start Time : " $(date -u)
+    echo
+    echo -n "What information would you like to find? (Do not use a Space if asking for a name.) "
+    read Look_for
+    Look_for2=$(echo -e "${Look_for}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+    echo 
+    echo "Looking for $Look_for2... Please wait... "
+    echo "Search Start Time : " | echo $(date -u)
     printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
 }
 
 grep_Append () {
-#I dont know why this works, how or if it even should.  This while statement shows my naivety to bash scripting though.
-###DO NOT TOUCH!!!! THIS SHOULDNT WORK, SO THEREFORE ITS PERFECTLY BROKEN AS IS!!!!###
-
-#okay so its time to implement some error checks of sorts
-
-#The -n operator checks whether the string is not null.
-#Effectively, this will return true for every case except where the string contains no characters. ie:
-#VAR="hello"
-#if [ -n "$VAR" ]; then
-#    echo "VAR is not empty"
-#fi
-
-##Similarly, the -z operator checks whether the string is null. ie:
-# VAR=""
-#if [ -z "$VAR" ]; then
-#   echo "VAR is empty"
-#fi
-
+#I dont know why this works, how or if it even should.  This while statement 
+# shows my naivety to bash scripting though.
+# DO NOT TOUCH!!!! THIS SHOULDNT WORK, SO THEREFORE ITS PERFECTLY BROKEN AS IS!
 
 while : 
  do
      grep -i $Look_for2 $inputPath >> $Look_for2.txt 
      if [ $? -eq 0 ] ; then
-       echo "	"
-       echo "$Look_for found and writing to file, check current directory for $Look_For.txt"
+       echo 
+       echo "$Look_for found and writing to file, check current directory for $Look_for.txt"
        echo "Search ended at " $(date -u)
        printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
        break
      else
-       echo "	"
+       echo 
        echo "Error, $lookFor not found in specified file."
        printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
        next_Step
@@ -141,7 +125,7 @@ trick_Step () {
 #this function is the final slide of the actual program. this will just ask if you would like to restart the program for another
 #search
 next_Step () {
-echo "	"
+echo 
 echo -n "Would you like to run another search? [y or n]: "
 read reFind
 #this line prints a pretty --------- across the length of the terminal
@@ -153,19 +137,20 @@ case $reFind in
 		     
    [nN] )
        echo "Okay, I hope you found me useful! See you next time!"
-       printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
+#       printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
        exit
        ;;
 	    
    *) 
-       echo "ERROR. Please press y or n."
+       echo " ERROR! Please press y or n. "
        trick_Step
        ;;
 esac
 }
 
-#once bash finishes reading functions, the initial search is called here.  When getting to next_Step, if user selects yes
-#next_Search will be called which is another previously declared function including these same commands.
+# once bash finishes reading functions, the initial search is called here.
+# When getting to next_Step, if user selects yes next_Search will be called which is another
+# previously declared function including these same commands.
 set_Path
 what_Find
 grep_Append
