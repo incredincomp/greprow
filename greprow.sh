@@ -38,11 +38,11 @@ next_Search () {
 set_Path () {
 echo " If you would like to define your own path, please press y. Otherwise, if you want this program to break, please press n. "
 echo -n " y or n: " 
-read answer
+read -r answer
 case $answer in
 
             [yY] )
-                   read -p "Please type your full file path, starting with a backslash if its absolute. Its more than likely equal to $PWD/names.txt: " inputPath
+                   read -r "Please type your full file path, starting with a backslash if its absolute. Its more than likely equal to $PWD/names.txt: " inputPath
                    ;;
 
             [nN] )
@@ -52,7 +52,7 @@ case $answer in
 
                * ) 
 	           echo "Invalid input"
-                   continue
+                   return
                    ;;
 esac
 }
@@ -61,11 +61,11 @@ esac
 what_Find () {  
     echo
     echo -n "What information would you like to find? (Do not use a Space if asking for a name.) "
-    read Look_for
+    read -r Look_for
     Look_for2=$(echo -e "${Look_for}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
     echo 
     echo "Looking for $Look_for2... Please wait... "
-    echo "Search Start Time : " | echo $(date -u)
+    echo "Search Start Time : " | echo "$(date -u)"
     printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
 }
 
@@ -103,7 +103,7 @@ trick_Step () {
 next_Step () {
 echo 
 echo -n "Would you like to run another search? [y or n]: "
-read reFind
+read -r reFind
 # this line prints a pretty --------- across the length of the terminal
 printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
 case $reFind in
