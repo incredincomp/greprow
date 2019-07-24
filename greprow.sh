@@ -65,7 +65,7 @@ what_Find () {
     Look_for2=$(echo -e "${Look_for}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
     echo 
     echo "Looking for $Look_for2... Please wait... "
-    echo "Search Start Time : " | echo "$(date -u)"
+    echo "Search Start Time : " | date -u
     printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
 }
 
@@ -76,16 +76,16 @@ grep_Append () {
 
 while : 
  do
-     grep -i $Look_for2 $inputPath >> $Look_for2.txt 
+     grep -i "$Look_for2" "$inputPath" >> "$Look_for2.txt" 
      if [ $? -eq 0 ] ; then
        echo 
        echo "$Look_for found and writing to file, check current directory for $Look_for.txt"
-       echo "Search ended at " $(date -u)
+       echo "Search ended at " "$(date -u)"
        printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
        break
      else
        echo 
-       echo "Error, $lookFor not found in specified file."
+       echo "Error, $Look_for not found in specified file."
        printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
        next_Step
      fi
