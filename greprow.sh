@@ -25,6 +25,23 @@
 
 set -o nounset                              # Treat unset variables as an error
 
+# setting up getopt function to allow for runtime commandline arguments
+while getopts "abc" option; do
+	case ${option} in
+		a )
+			echo "you choose a"
+			;;
+		b ) 
+			echo "you choose b"
+			;;
+		c )
+			echo "you choose c"
+			;;
+		\? )
+			echo "you need to choose an option"
+			;;
+	esac
+done
 #this is just a weird function that I dont think i need.  at the end tho, part of the switch case calls for a repeat of the
 #program functions so hey, why not make it easier on the program and compile it here?
 next_Search () {
@@ -42,7 +59,8 @@ read -r answer
 case $answer in
 
             [yY] )
-                   read -r "Please type your full file path, starting with a backslash if its absolute. Its more than likely equal to $PWD/names.txt: " inputPath
+                   echo -n "Please type your full file path, starting with a backslash if its absolute. Its more than likely equal to $PWD/names.txt: "
+		   read -r inputPath
                    ;;
 
             [nN] )
@@ -98,10 +116,31 @@ trick_Step () {
     next_Step
 }
 
+print_Content () {
+echo -n "would you like to see the file you just created? This will output the file contents to the screen here."
+read -r print_Out
+case $print_Out in
+	[yY] )
+		print_File
+		return
+		;;
+	[nN] )
+		return
+		;;
+	* )
+		return
+		;;
+esac
+}
+
+print_File () {
+cat "$Look_for2.txt"
+}
+
 # this function is the final slide of the actual program. this will just ask if you would
 # like to restart the program for another search
 next_Step () {
-echo 
+print_Content
 echo -n "Would you like to run another search? [y or n]: "
 read -r reFind
 # this line prints a pretty --------- across the length of the terminal
