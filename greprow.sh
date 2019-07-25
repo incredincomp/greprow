@@ -23,27 +23,33 @@
 #      REVISION:  07/24/2019 14:35:00 AM
 #===============================================================================
 
+PROGNAME=$(basename $0)
+
 set -o nounset                              # Treat unset variables as an error
 
 # setting up getopt function to allow for runtime commandline arguments
-while getopts "abc" option; do
+while getopts "abcd" option; do
 	case ${option} in
 		a )
-			echo "you choose a"
+			echo "you choose an apache log"
 			;;
 		b ) 
-			echo "you choose b"
+			echo "you choose an nginx log"
 			;;
 		c )
-			echo "you choose c"
+			echo "you choose an access log"
+			;;
+		d )
+			echo "you choose a grepable nmap file"
 			;;
 		\? )
 			echo "you need to choose an option"
 			;;
 	esac
 done
-#this is just a weird function that I dont think i need.  at the end tho, part of the switch case calls for a repeat of the
-#program functions so hey, why not make it easier on the program and compile it here?
+# this is just a weird function that I dont think i need.  at the end tho, 
+# part of the switch case calls for a repeat of the
+# program functions so hey, why not make it easier on the program and compile it here?
 next_Search () {
     set_Path
     what_Find
@@ -51,7 +57,17 @@ next_Search () {
     next_Step
 }
 
-#set path has been reverted to command line interaction again, youre welcome to myself
+# This is the start of an attempt at option handling
+# 
+#
+file_Options () {
+apache="apache"
+nginx="nginx"
+access="access"
+nmap="nmap"
+
+}
+# set path has been reverted to command line interaction again, youre welcome to myself
 set_Path () {
 echo " If you would like to define your own path, please press y. Otherwise, if you want this program to break, please press n. "
 echo -n " y or n: " 
@@ -65,7 +81,7 @@ case $answer in
 
             [nN] )
                    echo "okay, were going to just use $PWD/log.txt for you."
-                   inputPath="$PWD/log.txt"
+                   inputPath="$PWD/log.test"
                    ;;
 
                * ) 
@@ -75,7 +91,7 @@ case $answer in
 esac
 }
 
-# this function collects the variable that is used to search the specified file and stores it as lookFor
+# this function collects the variable that is used to search the specified file and stores it as Look_for
 what_Find () {  
     echo
     echo -n "What information would you like to find? (Do not use a Space if asking for a name.) "
@@ -94,7 +110,7 @@ grep_Append () {
 
 while : 
  do
-     grep -i "$Look_for2" "$inputPath" >> "$Look_for2.txt" 
+     grep -i "$Look_for2" "$inputPath" >> "$Look_for2.txt"
      if [ $? -eq 0 ] ; then
        echo 
        echo "$Look_for found and writing to file, check current directory for $Look_for.txt"
@@ -117,7 +133,7 @@ trick_Step () {
 }
 
 print_Content () {
-echo -n "would you like to see the file you just created? This will output the file contents to the screen here."
+echo -n "would you like to see the file you just created? This will output the file contents to the screen here. [yY or nN]: "
 read -r print_Out
 case $print_Out in
 	[yY] )
@@ -134,7 +150,8 @@ esac
 }
 
 print_File () {
-cat "$Look_for2.txt"
+	FILE=$Look_for2.txt
+cat "$FILE"
 }
 
 # this function is the final slide of the actual program. this will just ask if you would
@@ -148,18 +165,31 @@ printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
 case $reFind in
    [yY] )
        next_Search
-       ;;
-		     
+       ;;	     
    [nN] )
        echo "Okay, I hope you found me useful! See you next time!"
        printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
+       delete_Tests
        exit
-       ;;
-	    
+       ;;	    
    *) 
        echo " ERROR! Please press y or n. "
        trick_Step
        ;;
+esac
+}
+
+delete_Tests () {
+echo -n "Would you like to delete the test files? [y or n]: "
+read -r delete
+case $delete in
+   [yY] )
+	rm ./*.txt
+	echo "Files deleted. Take care."
+	;;
+   [nN] )
+	
+	;;
 esac
 }
 
