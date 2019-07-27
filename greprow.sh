@@ -3,7 +3,7 @@
 #
 #          FILE: greprow.sh
 #
-#        USAGE: sudo ./greprow.sh
+#        USAGE: ./greprow.sh
 #
 #   DESCRIPTION:
 #		Enter any information that could be contained in your list, this will
