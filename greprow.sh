@@ -1,10 +1,10 @@
-#!/bin/bash - 
+#!/bin/bash -
 #===============================================================================
 #
 #          FILE: greprow.sh
-# 
-#         USAGE: sudo ./greprow.sh 
-# 
+#
+#        USAGE: sudo ./greprow.sh
+#
 #   DESCRIPTION:
 #		Enter any information that could be contained in your list, this will
 #		pull the entire line that is related to that search term and print/append the data
@@ -16,14 +16,18 @@
 #		
 #          BUGS: will not work if you use a space in the search term, also, still creates a file even if script returns an error
 #                for no search term found, few others but gotta keep running it over and over yet
-#         NOTES: v2.01
+#         NOTES: v2.02
 #        AUTHOR: @incredincomp
 #  ORGANIZATION: 
 #       CREATED: 01/08/2019 09:55:54 PM
-#      REVISION:  07/24/2019 14:35:00 AM
+#      REVISION:  07/26/2019 22:35:00 AM
 #===============================================================================
 
 PROGNAME=$(basename $0)
+
+print_line () {
+printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
+}
 
 set -o nounset                              # Treat unset variables as an error
 
@@ -33,7 +37,7 @@ while getopts "abcd" option; do
 		a )
 			echo "you choose an apache log"
 			;;
-		b ) 
+		b )
 			echo "you choose an nginx log"
 			;;
 		c )
@@ -47,9 +51,7 @@ while getopts "abcd" option; do
 			;;
 	esac
 done
-# this is just a weird function that I dont think i need.  at the end tho, 
-# part of the switch case calls for a repeat of the
-# program functions so hey, why not make it easier on the program and compile it here?
+
 next_Search () {
     set_Path
     what_Find
@@ -58,22 +60,25 @@ next_Search () {
 }
 
 # This is the start of an attempt at option handling
-# 
-#
 file_Options () {
-apache="apache"
-nginx="nginx"
-access="access"
-nmap="nmap"
-
+# I asked -- I wonder if i can nest a function inside of a function
+# someone said -- It is even possible to nest a function within another function, although this is not very useful.
+# then I said -- but watch how useful this will be someday
+	apache () {
+	}
+	nginx () {
+	}
+	access () {
+	}
+	nmap () {
+	}
 }
 # set path has been reverted to command line interaction again, youre welcome to myself
 set_Path () {
 echo " If you would like to define your own path, please press y. Otherwise, if you want this program to break, please press n. "
-echo -n " y or n: " 
+echo -n " y or n: "
 read -r answer
 case $answer in
-
             [yY] )
                    echo -n "Please type your full file path, starting with a backslash if its absolute. Its more than likely equal to $PWD/names.txt: "
 		   read -r inputPath
@@ -100,7 +105,7 @@ what_Find () {
     echo 
     echo "Looking for $Look_for2... Please wait... "
     echo "Search Start Time : " | date -u
-    printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
+    print_line
 }
 
 grep_Append () {
@@ -108,19 +113,19 @@ grep_Append () {
 # shows my naivety to bash scripting though.
 # DO NOT TOUCH!!!! THIS SHOULDNT WORK, SO THEREFORE ITS PERFECTLY BROKEN AS IS!
 
-while : 
+while :
  do
      grep -i "$Look_for2" "$inputPath" >> "$Look_for2.txt"
      if [ $? -eq 0 ] ; then
-       echo 
+       echo
        echo "$Look_for found and writing to file, check current directory for $Look_for.txt"
        echo "Search ended at " "$(date -u)"
-       printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
+       print_line
        break
      else
-       echo 
+       echo
        echo "Error, $Look_for not found in specified file."
-       printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
+       print_line
        next_Step
      fi
  done
@@ -160,19 +165,18 @@ next_Step () {
 print_Content
 echo -n "Would you like to run another search? [y or n]: "
 read -r reFind
-# this line prints a pretty --------- across the length of the terminal
-printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
+print_line
 case $reFind in
    [yY] )
        next_Search
-       ;;	     
+       ;;
    [nN] )
        echo "Okay, I hope you found me useful! See you next time!"
-       printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
+       print_line
        delete_Tests
        exit
-       ;;	    
-   *) 
+       ;;
+   *)
        echo " ERROR! Please press y or n. "
        trick_Step
        ;;
@@ -180,7 +184,7 @@ esac
 }
 
 delete_Tests () {
-echo -n "Would you like to delete the test files? [y or n]: "
+echo -n "Would you like to delete the test files (CAUTION: will delete all .txt files in current directory)? [y or n]: "
 read -r delete
 case $delete in
    [yY] )
@@ -188,7 +192,7 @@ case $delete in
 	echo "Files deleted. Take care."
 	;;
    [nN] )
-	
+	next_Step
 	;;
 esac
 }
