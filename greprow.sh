@@ -125,6 +125,7 @@ while :
        echo "$Look_for found and writing to file, check current directory for $Look_for.txt"
        echo "Search ended at " "$(date -u)"
        print_line
+       print_Content
        break
      else
        echo
@@ -165,7 +166,6 @@ cat "$FILE"
 
 # ask if you would like to restart the program for another search
 next_Step () {
-print_Content
 echo -n "Would you like to run another search? [y or n]: "
 read -r reFind
 print_line
