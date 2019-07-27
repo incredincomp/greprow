@@ -23,6 +23,8 @@
 #      REVISION:  07/26/2019 22:35:00 AM
 #===============================================================================
 
+clear
+
 PROGNAME=$(basename $0)
 
 print_line () {
@@ -53,13 +55,13 @@ while getopts "abcd" option; do
 done
 
 opener () {
-clear
-echo ""
+echo " "
 print_line
 print_line
 base64 -d <<<"CgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICwtLS0tLi4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAsLS4tLS0tLiAgICAgICAgICAgICAgICAgICAgICAgICAgIAogLyAgIC8gICBcICAgICAgICAgICAgICAgICAgICwtLi0tLS0uICBcICAgIC8gIFwgICAgICAgICAgICAgICAgICAgICAgICAgIAp8ICAgOiAgICAgOiAgIF9fICAsLS4gICAgICAgIFwgICAgLyAgXCA7ICAgOiAgICBcICAgLC0tLS4gICAgICAgICAgIC4tLS0uIAouICAgfCAgOy4gLyAsJyAsJy8gL3wgICAgICAgIHwgICA6ICAgIHx8ICAgfCAuXCA6ICAnICAgLCdcICAgICAgICAgLy4gLi98IAouICAgOyAvLS1gICAnICB8IHwnIHwgLC0tLS4gIHwgICB8IC5cIDouICAgOiB8OiB8IC8gICAvICAgfCAgICAgLi0nLS4gJyB8IAo7ICAgfCA7ICBfXyB8ICB8ICAgLCcvICAgICBcIC4gICA6IHw6IHx8ICAgfCAgXCA6LiAgIDsgLC4gOiAgICAvX19fLyBcOiB8IAp8ICAgOiB8LicgLicnICA6ICAvIC8gICAgLyAgfHwgICB8ICBcIDp8ICAgOiAuICAvJyAgIHwgfDogOiAuLScuLiAnICAgJyAuIAouICAgfCAnXy4nIDp8ICB8ICcgLiAgICAnIC8gfHwgICA6IC4gIHw7ICAgfCB8ICBcJyAgIHwgLjsgOi9fX18vIFw6ICAgICAnIAonICAgOyA6IFwgIHw7ICA6IHwgJyAgIDsgICAvfDogICAgIHxgLSd8ICAgfCA7XCAgXCAgIDogICAgfC4gICBcICAnIC5cICAgIAonICAgfCAnLyAgLid8ICAsIDsgJyAgIHwgIC8gfDogICA6IDogICA6ICAgJyB8IFwuJ1wgICBcICAvICBcICAgXCAgICcgXCB8IAp8ICAgOiAgICAvICAgLS0tJyAgfCAgIDogICAgfHwgICB8IDogICA6ICAgOiA6LScgICBgLS0tLScgICAgXCAgIFwgIHwtLSIgIAogXCAgIFwgLicgICAgICAgICAgIFwgICBcICAvIGAtLS0nLnwgICB8ICAgfC4nICAgICAgICAgICAgICAgIFwgICBcIHwgICAgIAogIGAtLS1gICAgICAgICAgICAgICBgLS0tLScgICAgYC0tLWAgICBgLS0tJyAgICAgICAgICAgICAgICAgICAnLS0tIiAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAoK"
-echo "  Script created and maintaned by @IncredIncomp on https://github.com/incredincomp/greprow/"
-echo "  Come and Join the conversation and help me make this script better for all of us"
+echo "  Script created and maintained by @IncredIncomp on https://github.com/incredincomp/greprow/"
+echo "  Come and join the conversation and help make this script better for all of us"
+echo "  File issues here: https://github.com/incredincomp/greprow/issues"
 echo "  Special Thanks to @Venom404 for their contributions to the base project!"
 print_line
 print_line
@@ -77,12 +79,13 @@ next_Search () {
 
 # set path has been reverted to command line interaction again, youre welcome to myself
 set_Path () {
-echo " If you would like to define your own path, please press y. Otherwise, if you want this program to break, please press n. "
+echo " If you would like to define your own path, please press y. For testing, press n. "
 echo -n " y or n: "
 read -r answer
 case $answer in
             [yY] )
-                   echo -n "Please type your full file path, starting with a backslash if its absolute. Its more than likely equal to $PWD/names.txt: "
+                   echo "Please type your full file path, starting with a backslash if its absolute."
+		   echo -n "Its more than likely equal to $PWD/log.test: "
 		   read -r inputPath
                    ;;
 
@@ -161,8 +164,7 @@ print_File () {
 cat "$FILE"
 }
 
-# this function is the final slide of the actual program. this will just ask if you would
-# like to restart the program for another search
+# ask if you would like to restart the program for another search
 next_Step () {
 print_Content
 echo -n "Would you like to run another search? [y or n]: "
