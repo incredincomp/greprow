@@ -60,19 +60,8 @@ next_Search () {
 }
 
 # This is the start of an attempt at option handling
-file_Options () {
-# I asked -- I wonder if i can nest a function inside of a function
-# someone said -- It is even possible to nest a function within another function, although this is not very useful.
-# then I said -- but watch how useful this will be someday
-	apache () {
-	}
-	nginx () {
-	}
-	access () {
-	}
-	nmap () {
-	}
-}
+
+
 # set path has been reverted to command line interaction again, youre welcome to myself
 set_Path () {
 echo " If you would like to define your own path, please press y. Otherwise, if you want this program to break, please press n. "
