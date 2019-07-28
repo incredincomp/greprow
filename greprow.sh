@@ -166,11 +166,11 @@ cat "$FILE"
 get_ip () {
 echo " You are about to cut all data from the file you just made and convert in into a list of IP's"
 echo -n " Is that what you want? [yY] or [nN]: "
-read d_ans
+read -r d_ans
 case $d_ans in
    [yY] )
    	echo "Check the current directory for a file name IPs-$Look_for2.txt"
-	awk '{print $1}' $PWD/$Look_for2.txt >> IPs-$Look_for2.txt
+	awk '{print $1}' "$PWD/$Look_for2.txt" >> "IPs-$Look_for2.txt"
 	;;
    [nN] )
         return
@@ -187,6 +187,7 @@ read -r next_ans
 case $next_ans in
    [yY] )
        get_ip
+       last_Step
        ;;
    [nN] )
        return
