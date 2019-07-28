@@ -171,7 +171,7 @@ read -r d_ans
 case $d_ans in
    [yY] )
    	echo "Check the current directory for a file name IPs-$Look_for2.txt"
-	awk '{print $1}' "$PWD/$Look_for2.txt" | uniq -u >> "IPs-$Look_for2.txt"
+	awk '{print $1}' "$PWD/$Look_for2.txt" | uniq -u > "IPs-$Look_for2.txt"
 	;;
    [nN] )
         return
@@ -193,6 +193,7 @@ case $next_ans in
        ;;
    print )
        print_Content
+       last_Step
        ;;
       * )
        return
