@@ -78,8 +78,8 @@ next_Search () {
 
 # set path has been reverted to command line interaction again, youre welcome to myself
 set_Path () {
-echo " If you would like to define your own path, please press y. For testing, press n. "
-echo -n " y or n: "
+echo "If you would like to define your own path, please press y. For testing, press n. "
+echo -n "y or n: "
 read -r answer
 case $answer in
             [yY] )
@@ -102,6 +102,7 @@ esac
 # this function collects the variable that is used to search the specified file and stores it as Look_for
 what_Find () {  
     echo
+    print_line
     echo -n "What information would you like to find? (Do not use a Space if asking for a name.) "
     read -r Look_for
     Look_for2=$(echo -e "${Look_for}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
@@ -142,8 +143,9 @@ trick_Step () {
 }
 
 print_Content () {
-echo -n "would you like to see the file you just created? This will output the file contents to the screen here. [yY or nN]: "
+echo -n "Would you like to see the file you just created? This will output the file contents to the screen here. [yY or nN]: "
 read -r print_Out
+print_line
 case $print_Out in
 	[yY] )
 		print_File
@@ -164,8 +166,8 @@ cat "$FILE"
 }
 
 get_ip () {
-echo " You are about to cut all data from the file you just made and convert in into a list of IP's"
-echo -n " Is that what you want? [yY] or [nN]: "
+echo "You are about to cut all data from the file you just made and convert in into a list of IP's"
+echo -n "Is that what you want? [yY] or [nN]: "
 read -r d_ans
 case $d_ans in
    [yY] )
@@ -181,6 +183,7 @@ case $d_ans in
 esac
 }
 next_Step () {
+print_line
 echo "So far, the only extras that you can complete is to create an ip only list from your last selection."
 echo -n "Sound good? [yY] or [nN]:  "
 read -r next_ans
@@ -200,6 +203,7 @@ esac
 
 # ask if you would like to restart the program for another search
 last_Step () {
+print_line
 echo -n "Would you like to run another search? [y or n]: "
 read -r reFind
 print_line
