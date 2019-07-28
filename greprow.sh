@@ -125,7 +125,6 @@ while :
        echo "$Look_for found and writing to file, check current directory for $Look_for.txt"
        echo "Search ended at " "$(date -u)"
        print_line
-       print_Content
        break
      else
        echo
@@ -188,12 +187,12 @@ echo "So far, the only extras that you can complete is to create an ip only list
 echo -n "Sound good? [yY] or [nN]:  "
 read -r next_ans
 case $next_ans in
-   [yY] )
+   get )
        get_ip
        last_Step
        ;;
-   [nN] )
-       return
+   print )
+       print_Content
        ;;
       * )
        return
