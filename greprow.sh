@@ -183,8 +183,8 @@ esac
 }
 next_Step () {
 print_line
-echo "So far, the only extras that you can complete is to create an ip only list from your last selection."
-echo -n "Sound good? [yY] or [nN]:  "
+echo "You can now type "print" to view the results from your main search, or type "get" to pull all IP's from what you just created"
+echo -n "Sound good? Type get or print(Anything else will pass):  "
 read -r next_ans
 case $next_ans in
    get )
