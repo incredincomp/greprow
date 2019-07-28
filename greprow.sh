@@ -16,11 +16,11 @@
 #		
 #          BUGS: will not work if you use a space in the search term, also, still creates a file even if script returns an error
 #                for no search term found, few others but gotta keep running it over and over yet
-#         NOTES: v2.02
+#         NOTES: v2.03
 #        AUTHOR: @incredincomp
 #  ORGANIZATION: 
 #       CREATED: 01/08/2019 09:55:54
-#      REVISION:  07/27/2019 13:00:00
+#      REVISION:  07/28/2019 00:27:00
 #===============================================================================
 
 clear
@@ -32,6 +32,7 @@ printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
 }
 
 set -o nounset                              # Treat unset variables as an error
+set -e
 
 # setting up getopt function to allow for runtime commandline arguments
 while getopts "abcd" option; do
@@ -77,13 +78,13 @@ next_Search () {
 
 # set path has been reverted to command line interaction again, youre welcome to myself
 set_Path () {
-echo " If you would like to define your own path, please press y. For testing, press n. "
-echo -n " y or n: "
+echo "If you would like to define your own path, please press y. For testing, press n. "
+echo -n "y or n: "
 read -r answer
 case $answer in
             [yY] )
                    echo "Please type your full file path, starting with a backslash if its absolute."
-		   read -e -p "Its more than likely equal to $PWD/log.test: " inputPath
+		   read -r -e -p "Its more than likely equal to $PWD/log.test: " inputPath
                    ;;
 
             [nN] )
@@ -101,6 +102,7 @@ esac
 # this function collects the variable that is used to search the specified file and stores it as Look_for
 what_Find () {  
     echo
+    print_line
     echo -n "What information would you like to find? (Do not use a Space if asking for a name.) "
     read -r Look_for
     Look_for2=$(echo -e "${Look_for}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
@@ -141,8 +143,9 @@ trick_Step () {
 }
 
 print_Content () {
-echo -n "would you like to see the file you just created? This will output the file contents to the screen here. [yY or nN]: "
+echo -n "Would you like to see the file you just created? This will output the file contents to the screen here. [yY or nN]: "
 read -r print_Out
+print_line
 case $print_Out in
 	[yY] )
 		print_File
@@ -162,8 +165,45 @@ print_File () {
 cat "$FILE"
 }
 
-# ask if you would like to restart the program for another search
+get_ip () {
+echo "You are about to cut all data from the file you just made and convert in into a list of IP's"
+echo -n "Is that what you want? [yY] or [nN]: "
+read -r d_ans
+case $d_ans in
+   [yY] )
+   	echo "Check the current directory for a file name IPs-$Look_for2.txt"
+	awk '{print $1}' "$PWD/$Look_for2.txt" >> "IPs-$Look_for2.txt"
+	;;
+   [nN] )
+        return
+	;;
+      * )
+        return
+	;;
+esac
+}
 next_Step () {
+print_line
+echo "So far, the only extras that you can complete is to create an ip only list from your last selection."
+echo -n "Sound good? [yY] or [nN]:  "
+read -r next_ans
+case $next_ans in
+   [yY] )
+       get_ip
+       last_Step
+       ;;
+   [nN] )
+       return
+       ;;
+      * )
+       return
+       ;;
+esac
+}
+
+# ask if you would like to restart the program for another search
+last_Step () {
+print_line
 echo -n "Would you like to run another search? [y or n]: "
 read -r reFind
 print_line
@@ -193,7 +233,7 @@ case $delete in
 	echo "Files deleted. Take care."
 	;;
    [nN] )
-	next_Step
+	exit
 	;;
 esac
 }
