@@ -20,11 +20,11 @@ and print/append the data to a new file with the name of the search issued.
 * `git clone https://github.com/incredincomp/greprow/`
 * `cd greprow`
 * `sudo chmod +x greprow.sh`
-* `./greprow {option -not needed}`
+* `./greprow.sh {option -not needed}`
 
 ## DEV NOTE
 
-When you exit the script, its going to ask you if you want to delete all the .txt files that you created so that you will be left with a clean directory(greprow works out of its own directoy structure.)
+When you exit the script gracfully, its going to ask you if you want to delete all the .txt files that you created so that you will be left with a clean directory(greprow works out of its own directoy structure.)
 It is recommended that if you end up collecting any information that you would like to keep, either exit the script with `ctrl + c` or open a new terminal window and rename the file extensions to anything that `rm *.txt` wont delete, or move the files that you would like to keep for your records to a directory outside of `/greprow`.
 
 ## Proposed Changes
