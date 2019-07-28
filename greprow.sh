@@ -1,4 +1,4 @@
-#!/bin/bash -
+#!/usr/bin/env bash -
 #===============================================================================
 #
 #          FILE: greprow.sh
@@ -16,11 +16,11 @@
 #		
 #          BUGS: will not work if you use a space in the search term, also, still creates a file even if script returns an error
 #                for no search term found, few others but gotta keep running it over and over yet
-#         NOTES: v2.02
+#         NOTES: v2.03
 #        AUTHOR: @incredincomp
 #  ORGANIZATION: 
-#       CREATED: 01/08/2019 09:55:54 PM
-#      REVISION:  07/26/2019 22:35:00 AM
+#       CREATED: 01/08/2019 09:55:54
+#      REVISION:  07/28/2019 00:27:00
 #===============================================================================
 
 clear
@@ -32,6 +32,7 @@ printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
 }
 
 set -o nounset                              # Treat unset variables as an error
+set -e
 
 # setting up getopt function to allow for runtime commandline arguments
 while getopts "abcd" option; do
@@ -55,14 +56,12 @@ while getopts "abcd" option; do
 done
 
 opener () {
+print_line
+print_line
+base64 -d <<<"ICAsLS0tLS4uICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgLC0uLS0tLS4gICAgICAgICAgICAgICAgICAgICAgICAgICAKIC8gICAvICAgXCAgICAgICAgICAgICAgICAgICAsLS4tLS0tLiAgXCAgICAvICBcICAgICAgICAgICAgICAgICAgICAgICAgICAKfCAgIDogICAgIDogICBfXyAgLC0uICAgICAgICBcICAgIC8gIFwgOyAgIDogICAgXCAgICwtLS0uICAgICAgICAgICAuLS0tLiAKLiAgIHwgIDsuIC8gLCcgLCcvIC98ICAgICAgICB8ICAgOiAgICB8fCAgIHwgLlwgOiAgJyAgICwnXCAgICAgICAgIC8uIC4vfCAKLiAgIDsgLy0tYCAgJyAgfCB8JyB8ICwtLS0uICB8ICAgfCAuXCA6LiAgIDogfDogfCAvICAgLyAgIHwgICAgIC4tJy0uICcgfCAKOyAgIHwgOyAgX18gfCAgfCAgICwnLyAgICAgXCAuICAgOiB8OiB8fCAgIHwgIFwgOi4gICA7ICwuIDogICAgL19fXy8gXDogfCAKfCAgIDogfC4nIC4nJyAgOiAgLyAvICAgIC8gIHx8ICAgfCAgXCA6fCAgIDogLiAgLycgICB8IHw6IDogLi0nLi4gJyAgICcgLiAKLiAgIHwgJ18uJyA6fCAgfCAnIC4gICAgJyAvIHx8ICAgOiAuICB8OyAgIHwgfCAgXCcgICB8IC47IDovX19fLyBcOiAgICAgJyAKJyAgIDsgOiBcICB8OyAgOiB8ICcgICA7ICAgL3w6ICAgICB8YC0nfCAgIHwgO1wgIFwgICA6ICAgIHwuICAgXCAgJyAuXCAgICAKJyAgIHwgJy8gIC4nfCAgLCA7ICcgICB8ICAvIHw6ICAgOiA6ICAgOiAgICcgfCBcLidcICAgXCAgLyAgXCAgIFwgICAnIFwgfCAKfCAgIDogICAgLyAgIC0tLScgIHwgICA6ICAgIHx8ICAgfCA6ICAgOiAgIDogOi0nICAgYC0tLS0nICAgIFwgICBcICB8LS0iICAKIFwgICBcIC4nICAgICAgICAgICBcICAgXCAgLyBgLS0tJy58ICAgfCAgIHwuJyAgICAgICAgICAgICAgICBcICAgXCB8ICAgICAKICBgLS0tYCAgICAgICAgICAgICAgYC0tLS0nICAgIGAtLS1gICAgYC0tLScgICAgICAgICAgICAgICAgICAgJy0tLSIgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA="
 echo " "
-print_line
-print_line
-base64 -d <<<"CgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICwtLS0tLi4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAsLS4tLS0tLiAgICAgICAgICAgICAgICAgICAgICAgICAgIAogLyAgIC8gICBcICAgICAgICAgICAgICAgICAgICwtLi0tLS0uICBcICAgIC8gIFwgICAgICAgICAgICAgICAgICAgICAgICAgIAp8ICAgOiAgICAgOiAgIF9fICAsLS4gICAgICAgIFwgICAgLyAgXCA7ICAgOiAgICBcICAgLC0tLS4gICAgICAgICAgIC4tLS0uIAouICAgfCAgOy4gLyAsJyAsJy8gL3wgICAgICAgIHwgICA6ICAgIHx8ICAgfCAuXCA6ICAnICAgLCdcICAgICAgICAgLy4gLi98IAouICAgOyAvLS1gICAnICB8IHwnIHwgLC0tLS4gIHwgICB8IC5cIDouICAgOiB8OiB8IC8gICAvICAgfCAgICAgLi0nLS4gJyB8IAo7ICAgfCA7ICBfXyB8ICB8ICAgLCcvICAgICBcIC4gICA6IHw6IHx8ICAgfCAgXCA6LiAgIDsgLC4gOiAgICAvX19fLyBcOiB8IAp8ICAgOiB8LicgLicnICA6ICAvIC8gICAgLyAgfHwgICB8ICBcIDp8ICAgOiAuICAvJyAgIHwgfDogOiAuLScuLiAnICAgJyAuIAouICAgfCAnXy4nIDp8ICB8ICcgLiAgICAnIC8gfHwgICA6IC4gIHw7ICAgfCB8ICBcJyAgIHwgLjsgOi9fX18vIFw6ICAgICAnIAonICAgOyA6IFwgIHw7ICA6IHwgJyAgIDsgICAvfDogICAgIHxgLSd8ICAgfCA7XCAgXCAgIDogICAgfC4gICBcICAnIC5cICAgIAonICAgfCAnLyAgLid8ICAsIDsgJyAgIHwgIC8gfDogICA6IDogICA6ICAgJyB8IFwuJ1wgICBcICAvICBcICAgXCAgICcgXCB8IAp8ICAgOiAgICAvICAgLS0tJyAgfCAgIDogICAgfHwgICB8IDogICA6ICAgOiA6LScgICBgLS0tLScgICAgXCAgIFwgIHwtLSIgIAogXCAgIFwgLicgICAgICAgICAgIFwgICBcICAvIGAtLS0nLnwgICB8ICAgfC4nICAgICAgICAgICAgICAgIFwgICBcIHwgICAgIAogIGAtLS1gICAgICAgICAgICAgICBgLS0tLScgICAgYC0tLWAgICBgLS0tJyAgICAgICAgICAgICAgICAgICAnLS0tIiAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAoK"
-echo "  Script created and maintained by @IncredIncomp on https://github.com/incredincomp/greprow/"
-echo "  Come and join the conversation and help make this script better for all of us"
-echo "  File issues here: https://github.com/incredincomp/greprow/issues"
-echo "  Special Thanks to @Venom404 for their contributions to the base project!"
+base64 -d <<<"ICBTY3JpcHQgY3JlYXRlZCBhbmQgbWFpbnRhaW5lZCBieSBASW5jcmVkSW5jb21wIG9uIGh0dHBzOi8vZ2l0aHViLmNvbS9pbmNyZWRpbmNvbXAvZ3JlcHJvdy8KICBDb21lIGFuZCBqb2luIHRoZSBjb252ZXJzYXRpb24gYW5kIGhlbHAgbWFrZSB0aGlzIHNjcmlwdCBiZXR0ZXIgZm9yIGFsbCBvZiB1cwogIEZpbGUgaXNzdWVzIGhlcmU6IGh0dHBzOi8vZ2l0aHViLmNvbS9pbmNyZWRpbmNvbXAvZ3JlcHJvdy9pc3N1ZXMKICBTcGVjaWFsIFRoYW5rcyB0byBAVmVub200MDQgZm9yIHRoZWlyIGNvbnRyaWJ1dGlvbnMgdG8gdGhlIGJhc2UgcHJvamVjdCE="
+echo " "
 print_line
 print_line
 }
@@ -125,6 +124,7 @@ while :
        echo "$Look_for found and writing to file, check current directory for $Look_for.txt"
        echo "Search ended at " "$(date -u)"
        print_line
+       print_Content
        break
      else
        echo
@@ -163,9 +163,44 @@ print_File () {
 cat "$FILE"
 }
 
-# ask if you would like to restart the program for another search
+get_ip () {
+echo " You are about to cut all data from the file you just made and convert in into a list of IP's"
+echo -n " Is that what you want? [yY] or [nN]: "
+read d_ans
+case $d_ans in
+   [yY] )
+   	echo "yes"
+	awk '{print $1}' $PWD/$Look_for2.txt >> edited-$Look_for2.txt
+	return
+	;;
+   [nN] )
+        return
+	;;
+      * )
+        return
+	;;
+esac
+}
 next_Step () {
-print_Content
+echo "So far, the only extras that you can complete is to create an ip only list from your last selection."
+echo -n "Sound good? [yY] or [nN]:  "
+read -r next_ans
+case $next_ans in
+   [yY] )
+       get_ip
+       return
+       ;;
+   [nN] )
+       return
+       ;;
+      * )
+       return
+       ;;
+esac
+}
+
+# ask if you would like to restart the program for another search
+last_Step () {
 echo -n "Would you like to run another search? [y or n]: "
 read -r reFind
 print_line
