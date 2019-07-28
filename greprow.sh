@@ -169,9 +169,8 @@ echo -n " Is that what you want? [yY] or [nN]: "
 read d_ans
 case $d_ans in
    [yY] )
-   	echo "yes"
-	awk '{print $1}' $PWD/$Look_for2.txt >> edited-$Look_for2.txt
-	return
+   	echo "Check the current directory for a file name IPs-$Look_for2.txt"
+	awk '{print $1}' $PWD/$Look_for2.txt >> IPs-$Look_for2.txt
 	;;
    [nN] )
         return
@@ -188,7 +187,6 @@ read -r next_ans
 case $next_ans in
    [yY] )
        get_ip
-       return
        ;;
    [nN] )
        return
