@@ -84,7 +84,7 @@ read -r answer
 case $answer in
             [yY] )
                    echo "Please type your full file path, starting with a backslash if its absolute."
-		   read -e -p -r "Its more than likely equal to $PWD/log.test: " inputPath
+		   read -r -e -p "Its more than likely equal to $PWD/log.test: " inputPath
                    ;;
 
             [nN] )
