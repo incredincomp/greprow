@@ -229,7 +229,7 @@ case $delete in
 	echo "Files deleted. Take care."
 	;;
    [nN] )
-	next_Step
+	exit
 	;;
 esac
 }
