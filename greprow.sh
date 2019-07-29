@@ -130,27 +130,9 @@ next_Step () {
 ## Main
 # set path has been reverted to command line interaction again, youre welcome to myself
 set_Path () {
-echo "If you would like to define your own path, please press y. For testing, press n. "
-echo -n "y or n: "
-read -r answer
-case $answer in
-            [yY] )
-                   echo "Please type your full file path, starting with a backslash if its absolute."
-                   read -r -e -p "Its more than likely equal to $PWD/log.test: " inputPath
-                   ;;
-
-            [nN] )
-                   echo "okay, were going to just use $PWD/log.txt for you."
-                   inputPath="$PWD/log.test"
-                   ;;
-
-               * ) 
-      	           echo "Invalid input"
-                   return
-                   ;;
-esac
+    echo "Please type your full file path, starting with a backslash if its absolute."
+    read -r -e -p "Its more than likely equal to $PWD/log.test: " inputPath
 }
-
 # this function collects the variable that is used to search the specified file and stores it as Look_for
 what_Find () {  
     echo
