@@ -70,7 +70,7 @@ do
                 delete_Tests
                 ;;
         "Quit")
-                break
+                last_Step
                 ;;
              *) 
                 echo "Invalid option. Try another one."
@@ -95,9 +95,9 @@ next_Step () {
                             print_Content
                             ;;
                     "Manipulate the File")
-                            PS3='What Manipulation'
+                            PS3='Which Manipulation? '
                             options=("Get Unique IPs" "Delete .txt Files")
-                            select opt in "${options[@]}" "Quit";
+                            select opt in "${options[@]}" "Back";
                             do
             	                case $opt in
             		                "Get Unique IPs")
@@ -106,7 +106,7 @@ next_Step () {
                                         "Delete .txt Files")
                                                 delete_Tests
                                                 ;;
-                                        "Quit")
+                                        "Back")
                                                 break
                                                 ;;
                                         *) 
@@ -117,7 +117,7 @@ next_Step () {
                             done
                             ;;
                     "Quit")
-                            break
+                            last_Step
                             ;;
                     *) 
                             echo "Invalid option. Try another one."
@@ -171,56 +171,18 @@ while :
 ## File Manipulation
 
 delete_Tests () {
-echo -n "Would you like to delete the test files (CAUTION: will delete all .txt files in current directory)? [y or n]: "
-read -r delete
-case $delete in
-   [yY] )
         rm ./*.txt
         echo "Files deleted. Take care."
-        ;;
-   [nN] )
-        exit
-        ;;
-      * )
-        return
-        ;;
-esac
 }
 
 get_ip () {
-echo "This will allow you to cut all the uniq IP's from the file you just made"
-echo -n "Is that what you want? [yY] or [nN]: "
-read -r d_ans
-case $d_ans in
-   [yY] )
         echo "Check the current directory for a file name IPs-$Look_for2.txt"
         awk '{print $1}' "$PWD/$Look_for2.txt" | uniq -u > "IPs-$Look_for2.txt"
-        ;;
-   [nN] )
-        return
-        ;;
-      * )
-        return
-        ;;
-esac
 }
 
 print_Content () {
-echo -n "Would you like to see the file you just created? This will output the file contents to the screen here. [yY or nN]: "
-read -r print_Out
-print_line
-case $print_Out in
-  [yY] )
     print_File
     next_Step
-    ;;
-  [nN] )
-    return
-    ;;
-  * )
-    return
-    ;;
-esac
 }
 
 print_File () {
