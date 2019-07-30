@@ -7,20 +7,25 @@ program foundation for use in data management and research.  In it's current ren
 
 * analyzing server logs for suspect ip entries
 * pulling all post requests out of server logs
+* creating newline delimited lists of IP's from logs where the IP is the first entry
 * has been tested on apache2 and nginx access logs(works for ip's and for requests, probably more if you want it)
 * Have a suggestion? Please let me know
-
-Enter as many numbers from the IP that you can example;
-192.168.1
-this will pull the entire line, for every instance that is related to that ip, 
-and print/append the data to a new file with the name of the search issued.
 
 ## Usage
 
 * `git clone https://github.com/incredincomp/greprow/`
 * `cd greprow`
 * `sudo chmod +x greprow.sh`
-* `./greprow.sh {option -not needed}`
+* `./greprow.sh`
+
+Enter as many numbers from the IP that you can example;
+192.168.1
+this will pull the entire line, for every instance that is related to that ip, 
+and print/append the data to a new file with the name of the search issued.
+
+You can also search a web log for all POST requests, then creating an IP list from those results.
+
+You should also be able to search logs for all events relating to a specific point on a timeline(need to test various regex for grep search, will probably add options to better handle user error.)
 
 ## DEV NOTE
 
