@@ -193,7 +193,7 @@ delete_Tests () {
 }
 
 get_ip () {
-    echo "Check the current directory for a file name IPs-$Look_for2.txt"
+    echo "Checking the current directory for a file name IPs-$Look_for2.txt"
     awk '{print $1}' "$PWD/$Look_for2.txt" | uniq -u > "IPs-$Look_for2.txt"
 }
 
@@ -208,7 +208,7 @@ print_File () {
 	cat "$FILE"
 }
 print_IP_Content () {
-	FILE=IP-$Look_for2.txt
+	FILE=IPs-$Look_for2.txt
 	cat "$FILE"
 }
 ## Compilation Functions and Call Backs
