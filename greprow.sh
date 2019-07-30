@@ -20,7 +20,22 @@
 #        AUTHOR: @incredincomp
 #  ORGANIZATION: 
 #       CREATED: 01/08/2019 09:55:54
-#      REVISION:  07/29/2019 16:19:00
+#      REVISION: 07/29/2019 16:19:00
+#     LICENSING:  GNU GENERAL PUBLIC LICENSE V3
+#                 Copyright (C) 2019  @incredincomp
+#
+#                 This program is free software: you can redistribute it and/or modify
+#                 it under the terms of the GNU General Public License as published by
+#                 the Free Software Foundation, either version 3 of the License, or
+#                 (at your option) any later version.
+#
+#                 This program is distributed in the hope that it will be useful,
+#                 but WITHOUT ANY WARRANTY; without even the implied warranty of
+#                 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#                 GNU General Public License for more details.
+#
+#                 You should have received a copy of the GNU General Public License
+#                 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #===============================================================================
 
 
@@ -40,15 +55,13 @@ Banner () {
 
 Credits () {
 	base64 -d <<<"ICBTY3JpcHQgY3JlYXRlZCBhbmQgbWFpbnRhaW5lZCBieSBASW5jcmVkSW5jb21wIG9uIGh0dHBzOi8vZ2l0aHViLmNvbS9pbmNyZWRpbmNvbXAvZ3JlcHJvdy8KICBDb21lIGFuZCBqb2luIHRoZSBjb252ZXJzYXRpb24gYW5kIGhlbHAgbWFrZSB0aGlzIHNjcmlwdCBiZXR0ZXIgZm9yIGFsbCBvZiB1cwogIEZpbGUgaXNzdWVzIGhlcmU6IGh0dHBzOi8vZ2l0aHViLmNvbS9pbmNyZWRpbmNvbXAvZ3JlcHJvdy9pc3N1ZXMKICBTcGVjaWFsIFRoYW5rcyB0byBAVmVub200MDQgZm9yIHRoZWlyIGNvbnRyaWJ1dGlvbnMgdG8gdGhlIGJhc2UgcHJvamVjdCE="
+  base64 -d <<<"ICAgIEdyZXByb3cgIENvcHlyaWdodCAoQykgMjAxOSAgQGluY3JlZGluY29tcAogICAgVGhpcyBwcm9ncmFtIGNvbWVzIHdpdGggQUJTT0xVVEVMWSBOTyBXQVJSQU5UWTsgZm9yIGRldGFpbHMgdHlwZSBgc2hvdyB3Jy4KICAgIFRoaXMgaXMgZnJlZSBzb2Z0d2FyZSwgYW5kIHlvdSBhcmUgd2VsY29tZSB0byByZWRpc3RyaWJ1dGUgaXQKICAgIHVuZGVyIGNlcnRhaW4gY29uZGl0aW9uczsgdHlwZSBgc2hvdyBjJyBmb3IgZGV0YWlscy4K"
 }
 ## Opening title and credits
 opener () {
 print_line
-print_line
 Banner
 Credits
-echo " "
-print_line
 print_line
 }
 
