@@ -60,6 +60,7 @@ Credits () {
 opener () {
 print_line
 Banner
+echo " "
 Credits
 print_line
 }
