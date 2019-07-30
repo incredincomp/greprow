@@ -148,8 +148,20 @@ next_Step () {
 ## Main
 # set path has been reverted to command line interaction again, youre welcome to myself
 set_Path () {
-    echo "Please type your full file path, starting with a backslash if its absolute."
+    printf "Please type your full file path, starting with a backslash if its absolute."
     read -r -e -p "Its more than likely equal to $PWD/log.test: " inputPath
+    if [ -z "$inputPath" ] & [ -f "$inputPath" ]
+    then
+	    printf "Please set a valid path"
+    else
+	    read -r -e -p "Path has been set to $inputPath, is this correct? [y or n]: " ans
+	    if [ "$ans" = "y" ]
+	    then
+		    return
+	    else
+		    set_Path
+	    fi
+    fi
 }
 
 # this function collects the variable that is used to search the specified file and stores it as Look_for
