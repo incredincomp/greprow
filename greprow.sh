@@ -62,6 +62,7 @@ print_line
 Banner
 echo " "
 Credits
+echo " "
 print_line
 }
 
