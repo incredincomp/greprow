@@ -157,7 +157,7 @@ set_Path () {
 	    read -r -e -p "Path has been set to $inputPath, is this correct? [y or n]: " ans
 	    if [ "$ans" = "y" ]
 	    then
-		    return
+		    break
 	    else
 		    set_Path
 	    fi
