@@ -18,6 +18,8 @@ program foundation for use in data management and research.  In it's current ren
 * `sudo chmod +x greprow.sh`
 * `./greprow.sh`
 
+![](https://github.com/incredincomp/usage-videos/blob/master/greprow-usage.gif)
+
 Enter as many numbers from the IP that you can example;
 192.168.1
 this will pull the entire line, for every instance that is related to that ip, 
