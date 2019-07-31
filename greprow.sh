@@ -85,6 +85,7 @@ do
                 delete_Tests
                 ;;
         "Quit")
+		echo "QUITING, take care!"
                 break
                 ;;
              *) 
@@ -135,6 +136,7 @@ next_Step () {
 					done
 					;;
 			"Quit")
+					echo "QUITING, take care!"
 					exit
 					;;
 			*) 
@@ -152,8 +154,6 @@ set_Path () {
     read -r -e -p "Its more than likely equal to $PWD/log.test: " inputPath
     if [ -z "$inputPath" ] & [ -f "$inputPath" ]
     then
-	    printf "Please set a valid path"
-    else
 	    read -r -e -p "Path has been set to $inputPath, is this correct? [y or n]: " ans
 	    if [ "$ans" = "y" ]
 	    then
@@ -161,6 +161,9 @@ set_Path () {
 	    else
 		    set_Path
 	    fi
+    else
+	    echo "Please choose a valid path."
+	    return
     fi
 }
 
