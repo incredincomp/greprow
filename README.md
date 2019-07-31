@@ -18,6 +18,8 @@ program foundation for use in data management and research.  In it's current ren
 * `sudo chmod +x greprow.sh`
 * `./greprow.sh`
 
+*MUST USE SUDO IF NOT RUNNING AS ROOT FOR MOST LOG FILES*
+
 ![](https://github.com/incredincomp/usage-videos/blob/master/greprow-usage.gif)
 
 Enter as many numbers from the IP that you can example;
@@ -25,7 +27,7 @@ Enter as many numbers from the IP that you can example;
 this will pull the entire line, for every instance that is related to that ip, 
 and print/append the data to a new file with the name of the search issued.
 
-You can also search a web log for all POST requests, then creating an IP list from those results.
+You can also search a web log for all POST requests, then creating an IP list from those results.(shown in usage gif above)
 
 You should also be able to search logs for all events relating to a specific point on a timeline(need to test various regex for grep search, will probably add options to better handle user error.)
 
