@@ -16,7 +16,7 @@
 #
 #          BUGS: will not work if you use a space in the search term, also, still creates a file even if script returns an error
 #                for no search term found, few others but gotta keep running it over and over yet
-#         NOTES: v3.0.1
+#         NOTES: v3.0.1-1
 #        AUTHOR: @incredincomp
 #  ORGANIZATION:
 #       CREATED: 01/08/2019 09:55:54
@@ -42,7 +42,9 @@
 clear
 set -o nounset                              # Treat unset variables as an error
 set -e
-set -xv
+
+# Print script in console for debug
+#set -xv
 
 ## Global
 
@@ -83,7 +85,14 @@ do
                 next_Step
                 ;;
         "Delete the .txt Files")
-                delete_Tests
+								echo "This will delete all .txt files in this directory"
+								read -r -e -p "Is this safe/okay? [y or n]: " dlt_ans
+								if [ "$dlt_ans" = "y" ]
+								then
+									delete_Tests
+								elif [[ "$dlt_ans" = "n" ]]; then
+									return
+								fi
                 ;;
         "Quit")
 		echo "QUITING, take care!"
@@ -104,16 +113,13 @@ next_Step () {
 	do
 		case $opt in
 			"Try a New Search")
-					set_Path
-					what_Find
-					grep_Append
-					next_Step
+					next_Search
 					;;
 			"Print the File")
 					print_Content
 					;;
 			"Manipulate the File")
-					PS3='What Manipulation? '
+					PS3='What option? '
 					options=("Get Unique IPs" "Delete .txt Files")
 					select opt in "${options[@]}" "Back";
 					do
@@ -122,9 +128,11 @@ next_Step () {
 								get_ip
 								print_IP_Content
 								next_Step
+								return
 								;;
 							"Delete .txt Files")
 								delete_Tests
+								return
 								;;
 							"Back")
 								break
@@ -158,8 +166,7 @@ set_Path () {
 	    read -r -e -p "Path has been set to $inputPath, is this correct? [y or n]: " ans
 	    if [ "$ans" = "y" ]
 	    then
-
-		    return
+		    what_Find
 	    else
 		    set_Path
 	    fi
@@ -177,7 +184,7 @@ what_Find () {
 #    Look_for2=$(echo -e "${Look_for}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
 		Look_for_clean=$(echo -e "${Look_for}" | sed 's/[^a-zA-Z0-9]//g' | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
     echo "Looking for $Look_for... Please wait... Search started at:" && date -u
-    Banner
+		grep_Append
 }
 
 grep_Append () {
@@ -187,13 +194,14 @@ grep_Append () {
 while :
    do
      grep -i "$Look_for_clean" "$inputPath" >> "$Look_for_clean.txt" || echo "$Look_for_clean not found. Try something else."
-     if [ -s ./$Look_for_clean.txt ]; then
-       delete_Miss
+     if [ -s "./$Look_for_clean.txt" ]; then
+			 echo "$Look_for found and writing to file, check current directory for $Look_for.txt"
+       echo "Search ended at " "$(date -u)"
        next_Step
      else
-       echo "$Look_for found and writing to file, check current directory for $Look_for.txt"
-       echo "Search ended at " "$(date -u)"
-       break
+			 delete_Miss
+			 echo "ERROR. Try a new Search"
+       what_Find
 #     else
 #       echo "Error, $Look_for not found in specified file."
 #       delete_Miss
@@ -211,10 +219,10 @@ delete_Tests () {
 }
 
 delete_Miss () {
-	rm ./$Look_for_clean.txt
+	rm "./$Look_for_clean.txt"
 }
 get_ip () {
-    echo "Checking the current directory for a file name IPs-$Look_for_clean.txt"
+    echo "Check the current directory for a file name IPs-$Look_for_clean.txt"
     awk '{print $1}' "$PWD/$Look_for_clean.txt" | uniq -u > "IPs-$Look_for_clean.txt"
 }
 
@@ -230,7 +238,9 @@ print_File () {
 }
 print_IP_Content () {
 	FILE=IPs-$Look_for_clean.txt
-	cat "$FILE"
+	echo "Below is the head print out of your new file."
+	print_line
+	head "$FILE"
 }
 ## Compilation Functions and Call Backs
 next_Search () {
