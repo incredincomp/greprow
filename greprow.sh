@@ -10,15 +10,15 @@
 #		pull the entire line that is related to that search term and print/append the data
 #		to a new file with the name of the search issued.  needs format work,
 #		much apologies
-# 
+#
 #       OPTIONS: ---
 #  REQUIREMENTS: you need to have a .txt file in a location you know
-#		
+#
 #          BUGS: will not work if you use a space in the search term, also, still creates a file even if script returns an error
 #                for no search term found, few others but gotta keep running it over and over yet
-#         NOTES: v3.0.1
+#         NOTES: v3.0.1-1
 #        AUTHOR: @incredincomp
-#  ORGANIZATION: 
+#  ORGANIZATION:
 #       CREATED: 01/08/2019 09:55:54
 #      REVISION: 07/29/2019 16:19:00
 #     LICENSING:  GNU GENERAL PUBLIC LICENSE V3
@@ -42,6 +42,9 @@
 clear
 set -o nounset                              # Treat unset variables as an error
 set -e
+
+# Print script in console for debug
+#set -xv
 
 ## Global
 
@@ -82,13 +85,20 @@ do
                 next_Step
                 ;;
         "Delete the .txt Files")
-                delete_Tests
+								echo "This will delete all .txt files in this directory"
+								read -r -e -p "Is this safe/okay? [y or n]: " dlt_ans
+								if [ "$dlt_ans" = "y" ]
+								then
+									delete_Tests
+								elif [[ "$dlt_ans" = "n" ]]; then
+									return
+								fi
                 ;;
         "Quit")
 		echo "QUITING, take care!"
                 break
                 ;;
-             *) 
+             *)
                 echo "Invalid option. Try another one."
                 ;;
     esac
@@ -103,16 +113,13 @@ next_Step () {
 	do
 		case $opt in
 			"Try a New Search")
-					set_Path
-					what_Find
-					grep_Append
-					next_Step
+					next_Search
 					;;
 			"Print the File")
 					print_Content
 					;;
 			"Manipulate the File")
-					PS3='What Manipulation? '
+					PS3='What option? '
 					options=("Get Unique IPs" "Delete .txt Files")
 					select opt in "${options[@]}" "Back";
 					do
@@ -121,14 +128,16 @@ next_Step () {
 								get_ip
 								print_IP_Content
 								next_Step
+								return
 								;;
 							"Delete .txt Files")
 								delete_Tests
+								return
 								;;
 							"Back")
 								break
 								;;
-							*) 
+							*)
 								echo "Invalid option. Try another one."
 								continue
 								;;
@@ -139,7 +148,7 @@ next_Step () {
 					echo "QUITING, take care!"
 					exit
 					;;
-			*) 
+			*)
 					echo "Invalid option. Try another one."
 					continue
 					;;
@@ -157,7 +166,7 @@ set_Path () {
 	    read -r -e -p "Path has been set to $inputPath, is this correct? [y or n]: " ans
 	    if [ "$ans" = "y" ]
 	    then
-		    return
+		    what_Find
 	    else
 		    set_Path
 	    fi
@@ -168,34 +177,36 @@ set_Path () {
 }
 
 # this function collects the variable that is used to search the specified file and stores it as Look_for
-what_Find () {  
+what_Find () {
     print_line
     echo -n "What information would you like to find? (Do not use a Space if asking for a name.) "
     read -r Look_for
-    Look_for2=$(echo -e "${Look_for}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
-    echo "Looking for $Look_for2... Please wait... Search started at:"
-    date -u
-    Banner
+#    Look_for2=$(echo -e "${Look_for}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+		Look_for_clean=$(echo -e "${Look_for}" | sed 's/[^a-zA-Z0-9]//g' | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+    echo "Looking for $Look_for... Please wait... Search started at:" && date -u
+		grep_Append
 }
 
 grep_Append () {
-# I dont know why this works, how or if it even should.  This while statement 
+# I dont know why this works, how or if it even should.  This while statement
 # shows my naivety to bash scripting though.
 # DO NOT TOUCH!!!! THIS SHOULDNT WORK, SO THEREFORE ITS PERFECTLY BROKEN AS IS!
-
 while :
    do
-     grep -i "$Look_for2" "$inputPath" >> "$Look_for2.txt"
-     if [ $? -eq 0 ] ; then
-       echo
-       echo "$Look_for found and writing to file, check current directory for $Look_for.txt"
+     grep -i "$Look_for_clean" "$inputPath" >> "$Look_for_clean.txt" || echo "$Look_for_clean not found. Try something else."
+     if [ -s "./$Look_for_clean.txt" ]; then
+			 echo "$Look_for found and writing to file, check current directory for $Look_for.txt"
        echo "Search ended at " "$(date -u)"
-       break
-     else
-       echo
-       echo "Error, $Look_for not found in specified file."
-       print_line
        next_Step
+     else
+			 delete_Miss
+			 echo "ERROR. Try a new Search"
+       what_Find
+#     else
+#       echo "Error, $Look_for not found in specified file."
+#       delete_Miss
+#       print_line
+#       next_Step
      fi
    done
 }
@@ -207,9 +218,12 @@ delete_Tests () {
     echo "Files deleted. Take care."
 }
 
+delete_Miss () {
+	rm "./$Look_for_clean.txt"
+}
 get_ip () {
-    echo "Checking the current directory for a file name IPs-$Look_for2.txt"
-    awk '{print $1}' "$PWD/$Look_for2.txt" | uniq -u > "IPs-$Look_for2.txt"
+    echo "Check the current directory for a file name IPs-$Look_for_clean.txt"
+    awk '{print $1}' "$PWD/$Look_for_clean.txt" | uniq -u > "IPs-$Look_for_clean.txt"
 }
 
 print_Content () {
@@ -219,12 +233,14 @@ print_Content () {
 }
 
 print_File () {
-	FILE=$Look_for2.txt
+	FILE=$Look_for_clean.txt
 	cat "$FILE"
 }
 print_IP_Content () {
-	FILE=IPs-$Look_for2.txt
-	cat "$FILE"
+	FILE=IPs-$Look_for_clean.txt
+	echo "Below is the head print out of your new file."
+	print_line
+	head "$FILE"
 }
 ## Compilation Functions and Call Backs
 next_Search () {
