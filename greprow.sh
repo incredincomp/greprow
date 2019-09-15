@@ -16,7 +16,7 @@
 #
 #          BUGS: will not work if you use a space in the search term, also, still creates a file even if script returns an error
 #                for no search term found, few others but gotta keep running it over and over yet
-#         NOTES: v3.0.1-1
+#         NOTES: v3.0.1-2
 #        AUTHOR: @incredincomp
 #  ORGANIZATION:
 #       CREATED: 01/08/2019 09:55:54
