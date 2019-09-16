@@ -85,7 +85,7 @@ do
                 fi
                 ;;
         "Quit")
-    echo "QUITING, take care!"
+                echo "QUITING, take care!"
                 break
                 ;;
              *)
