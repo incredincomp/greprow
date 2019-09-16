@@ -12,15 +12,14 @@
 #		much apologies
 #
 #       OPTIONS: ---
-#  REQUIREMENTS: you need to have a .txt file in a location you know
+#  REQUIREMENTS: you need to have a file in a location you know
 #
-#          BUGS: will not work if you use a space in the search term, also, still creates a file even if script returns an error
-#                for no search term found, few others but gotta keep running it over and over yet
-#         NOTES: v3.0.1-3
+#          BUGS: few but gotta keep running it over and over yet
+#         NOTES: v3.0.2
 #        AUTHOR: @incredincomp
 #  ORGANIZATION:
 #       CREATED: 01/08/2019 09:55:54
-#      REVISION: 07/29/2019 16:19:00
+#      REVISION: 09/16/2019 14:15:00
 #     LICENSING:  GNU GENERAL PUBLIC LICENSE V3
 #                 Copyright (C) 2019  @incredincomp
 #
