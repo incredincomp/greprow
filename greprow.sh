@@ -15,11 +15,11 @@
 #  REQUIREMENTS: you need to have a file in a location you know
 #
 #          BUGS: few but gotta keep running it over and over yet
-#         NOTES: v3.0.2
+#         NOTES: v3.0.2-1
 #        AUTHOR: @incredincomp
 #  ORGANIZATION:
 #       CREATED: 01/08/2019 09:55:54
-#      REVISION: 09/16/2019 14:15:00
+#      REVISION: 09/16/2019 14:41:00
 #     LICENSING:  GNU GENERAL PUBLIC LICENSE V3
 #                 Copyright (C) 2019  @incredincomp
 #
@@ -191,7 +191,7 @@ while :
 }
 ## File Manipulation
 delete_Tests () {
-    rm ./*.txt
+    rm "./*.txt"
     echo "Files deleted. Take care."
 }
 delete_Miss () {
@@ -199,7 +199,7 @@ delete_Miss () {
 }
 get_ip () {
     echo "Check the current directory for a file name IPs-$Look_for_clean.txt"
-    awk '{print $1}' "$PWD/$Look_for_clean.txt" | uniq -u > "IPs-$Look_for_clean.txt"
+    awk '{print $1}' "$PWD/$Look_for_clean.txt" | uniq -u > "IPs-$Look_for_clean.ips"
 }
 print_Content () {
     print_line
@@ -211,8 +211,8 @@ print_File () {
     cat "$FILE"
 }
 print_IP_Content () {
-    FILE=IPs-$Look_for_clean.txt
-    echo "Below is the head print out of your new file."
+    FILE=IPs-$Look_for_clean.ips
+    echo "Below is the head print out of your new .ips file."
     print_line
     head "$FILE"
 }
