@@ -9,7 +9,7 @@ program foundation for use in data management and research.  In it's current ren
 * pulling all post requests out of server logs
 * creating newline delimited lists of IP's from logs where the IP is the first entry
 * has been tested on apache2 and nginx access logs(works for ip's and for requests, probably more if you want it)
-* In theory, you should be able to use on -oG output from nmap. If you have an output file ready named nmap.txt or something, use that as input path. For your first search, enter something like `Status: Up` which should create a file named `Status:Up.txt` that you can do this next search on the resulting file that will be located in the `greprow` directory. Now, after selecting the new `Status:Up.txt` use the manipulate file option and generate a list of IP's. You now have a list of all hosts that responded as up in your nmap scan for futher testing.
+* In theory, you should be able to use on -oG output from nmap. If you have an output file ready named nmap.txt or something, use that as input path. For your first search, enter something like `Status: Up` which should create a file named `Status:Up.txt` that you can do this next search on the resulting file that will be located in the `greprow` directory. Now, after selecting the new `statusup.txt` use the manipulate file option and generate a list of IP's. You now have a list of all hosts that responded as up in your nmap scan for futher testing.
 * Have a suggestion? Please let me know
 
 ## Usage
@@ -19,12 +19,12 @@ program foundation for use in data management and research.  In it's current ren
 * `sudo chmod +x greprow.sh`
 * `./greprow.sh`
 
-*MUST USE SUDO IF NOT RUNNING AS ROOT FOR MOST LOG FILES*
+*MUST USE SUDO IF NOT RUNNING AS ROOT FOR MOST LOG FILES( maybe not tho.. try without first and see if it will let you* 
 
 ![](https://github.com/incredincomp/usage-videos/blob/master/greprow-usage.gif)
 
 Enter as many numbers from the IP that you can example;
-192.168.1
+192.168.1.
 this will pull the entire line, for every instance that is related to that ip, 
 and print/append the data to a new file with the name of the search issued.
 
