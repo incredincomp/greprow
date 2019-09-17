@@ -15,11 +15,11 @@
 #  REQUIREMENTS: you need to have a file in a location you know
 #
 #          BUGS: few but gotta keep running it over and over yet
-#         NOTES: v3.0.2
+#         NOTES: v3.0.2-1
 #        AUTHOR: @incredincomp
 #  ORGANIZATION:
 #       CREATED: 01/08/2019 09:55:54
-#      REVISION: 09/16/2019 14:15:00
+#      REVISION: 09/16/2019 22:41:00
 #     LICENSING:  GNU GENERAL PUBLIC LICENSE V3
 #                 Copyright (C) 2019  @incredincomp
 #
@@ -191,15 +191,15 @@ while :
 }
 ## File Manipulation
 delete_Tests () {
-    rm ./*.txt
+    rm "./*.txt"
     echo "Files deleted. Take care."
 }
 delete_Miss () {
     rm "./$Look_for_clean.txt"
 }
 get_ip () {
-    echo "Check the current directory for a file name IPs-$Look_for_clean.txt"
-    awk '{print $1}' "$PWD/$Look_for_clean.txt" | uniq -u > "IPs-$Look_for_clean.txt"
+    echo "Check the current directory for a file name IPs-$Look_for_clean.ips"
+    awk '{print $1}' "$PWD/$Look_for_clean.txt" | uniq -u > "IPs-$Look_for_clean.ips"
 }
 print_Content () {
     print_line
@@ -207,11 +207,11 @@ print_Content () {
     next_Step
 }
 print_File () {
-    FILE=$Look_for_clean.txt
+    FILE="$Look_for_clean.txt"
     cat "$FILE"
 }
 print_IP_Content () {
-    FILE=IPs-$Look_for_clean.txt
+    FILE="IPs-$Look_for_clean.ips"
     echo "Below is the head print out of your new file."
     print_line
     head "$FILE"
@@ -227,27 +227,5 @@ next_Search () {
 # Its just my way of tricking bash into doing what I want
 trick_Step () {
     next_Step
-}
-# ask if you would like to restart the program for another search
-last_Step () {
-    print_line
-    echo -n "Would you like to run another search? [y or n]: "
-    read -r reFind
-    print_line
-    case $reFind in
-       [yY] )
-           next_Search
-           ;;
-       [nN] )
-           echo "Okay, I hope you found me useful! See you next time!"
-           print_line
-           delete_Tests
-           exit
-           ;;
-         *)
-           echo " ERROR! Please press y or n. "
-           trick_Step
-           ;;
-    esac
 }
 Opening_Menu
