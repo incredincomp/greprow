@@ -191,7 +191,7 @@ while :
 }
 ## File Manipulation
 delete_Tests () {
-    rm "./*.txt"
+    rm ./*.txt
     echo "Files deleted. Take care."
 }
 delete_Miss () {
