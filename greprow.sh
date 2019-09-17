@@ -228,26 +228,4 @@ next_Search () {
 trick_Step () {
     next_Step
 }
-# ask if you would like to restart the program for another search
-last_Step () {
-    print_line
-    echo -n "Would you like to run another search? [y or n]: "
-    read -r reFind
-    print_line
-    case $reFind in
-       [yY] )
-           next_Search
-           ;;
-       [nN] )
-           echo "Okay, I hope you found me useful! See you next time!"
-           print_line
-           delete_Tests
-           exit
-           ;;
-         *)
-           echo " ERROR! Please press y or n. "
-           trick_Step
-           ;;
-    esac
-}
 Opening_Menu
