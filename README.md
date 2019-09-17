@@ -9,7 +9,7 @@ program foundation for use in data management and research.  In it's current ren
 * pulling all post requests out of server logs
 * creating newline delimited lists of IP's from logs where the IP is the first entry
 * has been tested on apache2 and nginx access logs(works for ip's and for requests, probably more if you want it)
-* In theory, you should be able to use on -oG output from nmap. If you have an output file ready named nmap.txt or something, use that as input path. For your first search, enter something like `Status: Up` which should create a file named `Status:Up.txt` that you can do this next search on the resulting file that will be located in the `greprow` directory. Now, after selecting the new `statusup.txt` use the manipulate file option and generate a list of IP's. You now have a list of all hosts that responded as up in your nmap scan for futher testing.
+* In theory, you should be able to use on -oG output from nmap. If you have an output file ready named nmap.txt or something, use that as input path. For your first search, enter something like `Status: Up` which should create a file named `statusup.txt` that you can do this next search on the resulting file that will be located in the `greprow` directory. Now, after selecting the new `statusup.txt` use the manipulate file option and generate a list of IP's. You now have a list of all hosts that responded as up in your nmap scan for futher testing.
 * Have a suggestion? Please let me know
 
 ## Usage
@@ -37,11 +37,16 @@ You should also be able to search logs for all events relating to a specific poi
 When you exit the script gracfully, its going to ask you if you want to delete all the .txt files that you created so that you will be left with a clean directory(greprow works out of its own directoy structure.)
 It is recommended that if you end up collecting any information that you would like to keep, either exit the script with `ctrl + c` or open a new terminal window and rename the file extensions to anything that `rm *.txt` wont delete, or move the files that you would like to keep for your records to a directory outside of `/greprow`.
 
+*New Note: Now will still remove .txt files, so those will be the compiled original scripts from grepappend usage. Now, when you do the unique ip grab, that file will be named with a .ips extenstion so you can safely delete the largest of the files on exit.*
+
 ## Proposed Changes
 
 *  Set up options for specific types of log files to point to new functions for result file clean up
-*  Some options I would like to add would be to add the ability to awk or sed only the IP's matching the pattern instead of entire line if you would like to make a target list or something like that from nmap results/or fire scans back at suspect IP's
-*
+1. ~~Apache~~ (need to set new case statement for selection or default if adding more options)
+2. ~~Nginx~~
+3. nmap options
+*  ~~Some options I would like to add would be to add the ability to awk or sed only the IP's matching the pattern instead of entire line if you would like to make a target list or something like that from nmap results/or fire scans back at suspect IP's~~
+*  
 
 ### Warning
 
