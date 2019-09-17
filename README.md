@@ -34,7 +34,7 @@ You should also be able to search logs for all events relating to a specific poi
 
 ## DEV NOTE
 
-When you exit the script gracfully, its going to ask you if you want to delete all the .txt files that you created so that you will be left with a clean directory(greprow works out of its own directoy structure.)
+When you exit the script gracefully, it's going to ask you if you want to delete all the .txt files that you created so that you will be left with a clean directory(greprow works out of its own directoy structure.)
 It is recommended that if you end up collecting any information that you would like to keep, either exit the script with `ctrl + c` or open a new terminal window and rename the file extensions to anything that `rm *.txt` wont delete, or move the files that you would like to keep for your records to a directory outside of `/greprow`.
 
 *New Note: Now will still remove .txt files, so those will be the compiled original scripts from grepappend usage. Now, when you do the unique ip grab, that file will be named with a .ips extenstion so you can safely delete the largest of the files on exit.*
