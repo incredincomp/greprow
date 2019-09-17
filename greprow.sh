@@ -15,11 +15,11 @@
 #  REQUIREMENTS: you need to have a file in a location you know
 #
 #          BUGS: few but gotta keep running it over and over yet
-#         NOTES: v3.0.2
+#         NOTES: v3.0.2-1
 #        AUTHOR: @incredincomp
 #  ORGANIZATION:
 #       CREATED: 01/08/2019 09:55:54
-#      REVISION: 09/16/2019 14:15:00
+#      REVISION: 09/16/2019 14:41:00
 #     LICENSING:  GNU GENERAL PUBLIC LICENSE V3
 #                 Copyright (C) 2019  @incredincomp
 #
